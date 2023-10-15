@@ -1,9 +1,9 @@
 #include"Auxiliary_Functions.h"
 void SetColor(const int& text, const int& background)
 {
-	// функция установки цвета шрифта на экране
-	HANDLE hStdOut = GetStdHandle(STD_OUTPUT_HANDLE); // Дескриптор устройства стандартного вывода - номер потока для буфера консоли в системе
-	SetConsoleTextAttribute(hStdOut, static_cast<WORD>((background << 4) | text)); // задаём атрибуты для цвета и шрифта консоли
+	// ГґГіГ­ГЄГ¶ГЁГї ГіГ±ГІГ Г­Г®ГўГЄГЁ Г¶ГўГҐГІГ  ГёГ°ГЁГґГІГ  Г­Г  ГЅГЄГ°Г Г­ГҐ
+	HANDLE hStdOut = GetStdHandle(STD_OUTPUT_HANDLE); // Г„ГҐГ±ГЄГ°ГЁГЇГІГ®Г° ГіГ±ГІГ°Г®Г©Г±ГІГўГ  Г±ГІГ Г­Г¤Г Г°ГІГ­Г®ГЈГ® ГўГ»ГўГ®Г¤Г  - Г­Г®Г¬ГҐГ° ГЇГ®ГІГ®ГЄГ  Г¤Г«Гї ГЎГіГґГҐГ°Г  ГЄГ®Г­Г±Г®Г«ГЁ Гў Г±ГЁГ±ГІГҐГ¬ГҐ
+	SetConsoleTextAttribute(hStdOut, static_cast<WORD>((background << 4) | text)); // Г§Г Г¤Г ВёГ¬ Г ГІГ°ГЁГЎГіГІГ» Г¤Г«Гї Г¶ГўГҐГІГ  ГЁ ГёГ°ГЁГґГІГ  ГЄГ®Г­Г±Г®Г«ГЁ
 }
 void clear_screen()
 {
@@ -12,7 +12,7 @@ void clear_screen()
 }
 void display_current_operation(const int& number_of_operation)
 {
-	// функция отображения текущей операции на экране консоли
+	// ГґГіГ­ГЄГ¶ГЁГї Г®ГІГ®ГЎГ°Г Г¦ГҐГ­ГЁГї ГІГҐГЄГіГ№ГҐГ© Г®ГЇГҐГ°Г Г¶ГЁГЁ Г­Г  ГЅГЄГ°Г Г­ГҐ ГЄГ®Г­Г±Г®Г«ГЁ
 	if (number_of_operation != 27)
 	{
 		cout << "Current operation: ";
@@ -56,7 +56,7 @@ void display_current_operation(const int& number_of_operation)
 }
 void display_diagnostic_message(const int& number_of_operation)
 {
-	// функция вывода диагностических сообщений
+	// ГґГіГ­ГЄГ¶ГЁГї ГўГ»ГўГ®Г¤Г  Г¤ГЁГ ГЈГ­Г®Г±ГІГЁГ·ГҐГ±ГЄГЁГµ Г±Г®Г®ГЎГ№ГҐГ­ГЁГ©
 	switch (number_of_operation)
 	{
 
@@ -148,36 +148,36 @@ void display_diagnostic_message(const int& number_of_operation)
 	}
 	SetColor(white, 0);
 }
-void clear_substring_from_punctuation_marks(string& str) // функция очистки строки от знаков препинания
+void clear_substring_from_punctuation_marks(string& str) // ГґГіГ­ГЄГ¶ГЁГї Г®Г·ГЁГ±ГІГЄГЁ Г±ГІГ°Г®ГЄГЁ Г®ГІ Г§Г­Г ГЄГ®Гў ГЇГ°ГҐГЇГЁГ­Г Г­ГЁГї
 {
-	ifstream reading_filestream("Punctuation_Symbols.txt"); // открытие файла со знаками пунктуации
-	string file_iterator; // буферная строка
-	getline(reading_filestream, file_iterator); // считать строку, состоящую из знаков препинания, из файла
+	ifstream reading_filestream("Punctuation_Symbols.txt"); // Г®ГІГЄГ°Г»ГІГЁГҐ ГґГ Г©Г«Г  Г±Г® Г§Г­Г ГЄГ Г¬ГЁ ГЇГіГ­ГЄГІГіГ Г¶ГЁГЁ
+	string file_iterator; // ГЎГіГґГҐГ°Г­Г Гї Г±ГІГ°Г®ГЄГ 
+	getline(reading_filestream, file_iterator); // Г±Г·ГЁГІГ ГІГј Г±ГІГ°Г®ГЄГі, Г±Г®Г±ГІГ®ГїГ№ГіГѕ ГЁГ§ Г§Г­Г ГЄГ®Гў ГЇГ°ГҐГЇГЁГ­Г Г­ГЁГї, ГЁГ§ ГґГ Г©Г«Г 
 	size_t position = 0;
-	for (int i = 0; i < file_iterator.size(); i++) // пройтись по строке
+	for (int i = 0; i < file_iterator.size(); i++) // ГЇГ°Г®Г©ГІГЁГ±Гј ГЇГ® Г±ГІГ°Г®ГЄГҐ
 	{
 		do
 		{
-			position = str.find(file_iterator[i]); // поиск в строке знака препинания
-			if (position != string::npos) // если найден знак препинания
+			position = str.find(file_iterator[i]); // ГЇГ®ГЁГ±ГЄ Гў Г±ГІГ°Г®ГЄГҐ Г§Г­Г ГЄГ  ГЇГ°ГҐГЇГЁГ­Г Г­ГЁГї
+			if (position != string::npos) // ГҐГ±Г«ГЁ Г­Г Г©Г¤ГҐГ­ Г§Г­Г ГЄ ГЇГ°ГҐГЇГЁГ­Г Г­ГЁГї
 			{
-				str.erase(position, 1); // удалить его
+				str.erase(position, 1); // ГіГ¤Г Г«ГЁГІГј ГҐГЈГ®
 			}
 		} while (position != string::npos);
 		position = 0;
 	}
 	reading_filestream.close();
 }
-void show_main_menu() // функция вывода главного меню на экран пользователя
+void show_main_menu() // ГґГіГ­ГЄГ¶ГЁГї ГўГ»ГўГ®Г¤Г  ГЈГ«Г ГўГ­Г®ГЈГ® Г¬ГҐГ­Гѕ Г­Г  ГЅГЄГ°Г Г­ ГЇГ®Г«ГјГ§Г®ГўГ ГІГҐГ«Гї
 {
-	cout << "Чтобы выбрать опцию меню, нажмите кнопку соответствующую значку.\n\n";
-	cout << "[1] - Добавить термин в указатель\n";
-	cout << "[2] - Добавить страницу, на которой встречается термин\n";
-	cout << "[3] - Загрузить предметный указатель из файла\n";
-	cout << "[4] - Записать в файл предметный указатель\n";
-	cout << "[5] - Удалить термин\n";
-	cout << "[6] - Удалить страницу, на которой встречается термин\n";
-	cout << "[7] - Показать предметный указатель\n";
-	cout << "[ESC] - Закрыть программу\n";
+	cout << "Г—ГІГ®ГЎГ» ГўГ»ГЎГ°Г ГІГј Г®ГЇГ¶ГЁГѕ Г¬ГҐГ­Гѕ, Г­Г Г¦Г¬ГЁГІГҐ ГЄГ­Г®ГЇГЄГі Г±Г®Г®ГІГўГҐГІГ±ГІГўГіГѕГ№ГіГѕ Г§Г­Г Г·ГЄГі.\n\n";
+	cout << "[1] - Г„Г®ГЎГ ГўГЁГІГј ГІГҐГ°Г¬ГЁГ­ Гў ГіГЄГ Г§Г ГІГҐГ«Гј\n";
+	cout << "[2] - Г„Г®ГЎГ ГўГЁГІГј Г±ГІГ°Г Г­ГЁГ¶Гі, Г­Г  ГЄГ®ГІГ®Г°Г®Г© ГўГ±ГІГ°ГҐГ·Г ГҐГІГ±Гї ГІГҐГ°Г¬ГЁГ­\n";
+	cout << "[3] - Г‡Г ГЈГ°ГіГ§ГЁГІГј ГЇГ°ГҐГ¤Г¬ГҐГІГ­Г»Г© ГіГЄГ Г§Г ГІГҐГ«Гј ГЁГ§ ГґГ Г©Г«Г \n";
+	cout << "[4] - Г‡Г ГЇГЁГ±Г ГІГј Гў ГґГ Г©Г« ГЇГ°ГҐГ¤Г¬ГҐГІГ­Г»Г© ГіГЄГ Г§Г ГІГҐГ«Гј\n";
+	cout << "[5] - Г“Г¤Г Г«ГЁГІГј ГІГҐГ°Г¬ГЁГ­\n";
+	cout << "[6] - Г“Г¤Г Г«ГЁГІГј Г±ГІГ°Г Г­ГЁГ¶Гі, Г­Г  ГЄГ®ГІГ®Г°Г®Г© ГўГ±ГІГ°ГҐГ·Г ГҐГІГ±Гї ГІГҐГ°Г¬ГЁГ­\n";
+	cout << "[7] - ГЏГ®ГЄГ Г§Г ГІГј ГЇГ°ГҐГ¤Г¬ГҐГІГ­Г»Г© ГіГЄГ Г§Г ГІГҐГ«Гј\n";
+	cout << "[ESC] - Г‡Г ГЄГ°Г»ГІГј ГЇГ°Г®ГЈГ°Г Г¬Г¬Гі\n";
 	cout << endl << endl;
 }
