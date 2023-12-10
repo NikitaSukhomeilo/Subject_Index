@@ -53,16 +53,17 @@ namespace UIVersion
 			Point_to_Next_Object = 0;
 		}
 	};
-	void Add_Term(const string&);
-	void Add_Page(const string&, const string&);
-	void write_to_file_all(const string&);
-	void delete_trunk_object(Term*&);
-	void delete_branch_object(Term*&, const string&);
-	int read_from_file(const string&);
-	bool check_trunk_availability(Term*&, const string&);
-	void clear_structure();
+	void Add_Term(const string&); // добавление термина в структуру
+	void Add_Page(const string&, const string&); // добавление страницы к термину
+	void write_to_file(const string&); // запись в файл структуры
+	void delete_trunk_object(Term*&); // удаление термина
+	void delete_branch_object(Term*&, const string&); // удаление страницы
+	int read_from_file(const string&); // считывание структуры из файла
+	bool check_trunk_availability(Term*&, const string&); // проверка наличия выбранного элемента в структуре
+	void clear_structure(); // очистка структуры
+	bool unsaved_changes; // показатель изменений в структуре
+	// временные переменные для итерации по структуре
 	Term* Beginning_Pointer;
-	bool unsaved_changes;
 	Term* Temporary;
 	Term* Iterator;
 	public ref class MainScreen : public System::Windows::Forms::Form
@@ -111,8 +112,8 @@ namespace UIVersion
 	private: System::Windows::Forms::Button^ ApplyChanges;
 	public: System::Windows::Forms::ListBox^ Screen;
 	private:
-	string* inbound_filename;
-	string* outbound_filename;
+	string* inbound_filename; // название входного файла со структурой
+	string* outbound_filename; // название выходного файла со структурой
 	System::Windows::Forms::Label^ DiagMes_1;
 		/// <summary>
 		/// Обязательная переменная конструктора.
@@ -320,17 +321,27 @@ namespace UIVersion
 		}
 #pragma endregion
 	private:
-	String^ get_current_directory();
-	void show_structure();
+	String^ get_current_directory(); // получение текущей папки с программой
+	// отображение структуры на экран
+	void show_structure(); 
 	void update_screen();
+	// опция меню - открыть файл из проводника
 	System::Void открытьToolStripMenuItem_Click_1(System::Object^ sender, System::EventArgs^ e);
+	// опция меню - сохранить файл в любом случае
 	System::Void сохранитьКакToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e);
+	// опция меню - удалить запись из структуры
 	System::Void DeleteTerm_Click(System::Object^ sender, System::EventArgs^ e);
+	// выход из программы
 	System::Void выйтиToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e);
+	// очистить структуру и создать новую
 	System::Void новыйToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e);
+	// опция меню - сохранить файл
 	System::Void сохранитьToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e);
+	// событие добавления записи в структуру
 	System::Void AddTerm_Click(System::Object^ sender, System::EventArgs^ e);
+	// событие ввод данных в поле формы для составления записи в струткуру
 	System::Void ApplyChanges_Click(System::Object^ sender, System::EventArgs^ e);
+	// событие изменение выбранной записи в окне структуры
     System::Void Screen_SelectedIndexChanged(System::Object^ sender, System::EventArgs^ e);
 };
 }

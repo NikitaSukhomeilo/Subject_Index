@@ -25,7 +25,7 @@ void UIVersion::MainScreen::show_structure()
 	Term* Temporary_Trunk_Object = Beginning_Pointer;
 	while (Temporary_Trunk_Object != 0)
 	{
-		buffer = Temporary_Trunk_Object->Name + " ";// вывести Термин
+		buffer = Temporary_Trunk_Object->Name + "  ";// вывести Термин
 		Page* Temporary_Branch_Object = Temporary_Trunk_Object->Point_to_Branch;
 		while (Temporary_Branch_Object != 0) // пока указатель в ветви не равен указателю на последний элемент
 		{
@@ -83,7 +83,7 @@ System::Void UIVersion::MainScreen::сохранитьКакToolStripMenuItem_Click(System::
 		{
 			*outbound_filename = marshal_as<string>(Select_File->FileName); // привести к строковому типу std::string название входного файла для передачи в сортировку 
 			stream->Close(); // закрытие диалога проводника
-			write_to_file_all(*outbound_filename);
+			write_to_file(*outbound_filename);
 		}
 	}
 	if (this->DialogResult == System::Windows::Forms::DialogResult::Cancel)
@@ -97,25 +97,18 @@ System::Void UIVersion::MainScreen::DeleteTerm_Click(System::Object^ sender, Sys
 {
 	string selected_term = marshal_as<string>(Screen->SelectedItem->ToString());
 	size_t position = 0;
-	for (size_t i = 0; i < selected_term.size() - 1; i++)
-	{
-		if (selected_term[i] > 47 && selected_term[i] < 58)
-		{
-			if (selected_term[i + 1] > 47 && selected_term[i + 1] < 58)
-			{
-				position = i;
-				break;
-			}
-		}
-	}
-	selected_term = selected_term.substr(0, (selected_term.rfind(' ') - 1));
-	//selected_term = selected_term.substr(0, position - 2); // извлечь до первой цифры
+	// извлечь название термина
+	selected_term = selected_term.substr(0, (selected_term.find("  ")));
 	Term* Current_Object = Beginning_Pointer;
 	if (check_trunk_availability(Current_Object, selected_term) == true)
 	{
 		delete_trunk_object(Current_Object);
 		unsaved_changes = true;
 		update_screen();
+		if (this->Screen->Items->Count == 0)
+		{
+			DeleteTerm->Enabled = false;
+		}
 	}
 }
 System::Void UIVersion::MainScreen::выйтиToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e)
@@ -136,7 +129,7 @@ System::Void UIVersion::MainScreen::сохранитьToolStripMenuItem_Click(System::Obj
 	{
 		if (*outbound_filename != "")
 		{
-			write_to_file_all(*outbound_filename);
+			write_to_file(*outbound_filename);
 		}
 		else
 		{
@@ -152,7 +145,7 @@ System::Void UIVersion::MainScreen::сохранитьToolStripMenuItem_Click(System::Obj
 				{
 					*outbound_filename = marshal_as<string>(Select_File->FileName); // привести к строковому типу std::string название входного файла для передачи в сортировку 
 					stream->Close(); // закрытие диалога проводника
-					write_to_file_all(*outbound_filename);
+					write_to_file(*outbound_filename);
 				}
 			}
 			if (this->DialogResult == System::Windows::Forms::DialogResult::Cancel)
@@ -209,29 +202,15 @@ System::Void UIVersion::MainScreen::ApplyChanges_Click(System::Object^ sender, S
 		if (this->Screen->Items->Count != 0)
 		{
 			prev = marshal_as<string>(this->Screen->SelectedItem->ToString());
-			size_t position = 0;
-			for (size_t i = 0; i < prev.size() - 1; i++)
-			{
-				if (prev[i] > 47 && prev[i] < 58)
-				{
-					if (prev[i + 1] > 47 && prev[i + 1] < 58)
-					{
-						position = i;
-						break;
-					}
-				}
-			}
-			prev = prev.substr(0, (prev.rfind(' ') - 1));
-			//prev = prev.substr(0, position - 2); // извлечь до первой цифры
-
-
+			prev = prev.substr(0, (prev.find(' '))); // извлечь из строки название выбранного термина
 			Term* Current_Object = new Term(record);
 			string page_number;
-			for (const auto& iterator : page)
+			for (size_t i = 0; i < page.size(); i++)
 			{
-				if (iterator == page[page.size() - 1])
+				char Iterator = page[i];
+				if (i == (page.size() - 1))
 				{
-					page_number += iterator;
+					page_number += Iterator;
 					Page* New_Object = new Page(page_number);// инициализация его полей
 					if (Current_Object->Point_to_Branch != 0) // если в ветви есть объекты
 					{
@@ -249,11 +228,11 @@ System::Void UIVersion::MainScreen::ApplyChanges_Click(System::Object^ sender, S
 					}
 					page_number.clear();
 				}
-				if (iterator != ' ' && iterator != ',')
+				else if (Iterator != ' ' && Iterator != ',')
 				{
-					page_number += iterator;
+					page_number += Iterator;
 				}
-				else if ((page_number.size()) && (iterator == ' ' || iterator == ','))
+				else if ((page_number.size()) && (Iterator == ' ' || Iterator == ','))
 				{
 					Page* New_Object = new Page(page_number);// инициализация его полей
 					if (Current_Object->Point_to_Branch != 0) // если в ветви есть объекты
@@ -291,9 +270,10 @@ System::Void UIVersion::MainScreen::ApplyChanges_Click(System::Object^ sender, S
 		{
 			Term* Current_Object = new Term(record);
 			string page_number;
-			for (const auto& iterator : page)
+			for (size_t i = 0; i< page.size(); i++)
 			{
-				if (iterator == page[page.size() - 1])
+				char iterator = page[i];
+				if (i == (page.size() - 1))
 				{
 					page_number += iterator;
 					Page* New_Object = new Page(page_number);// инициализация его полей
@@ -313,7 +293,7 @@ System::Void UIVersion::MainScreen::ApplyChanges_Click(System::Object^ sender, S
 					}
 					page_number.clear();
 				}
-				if (iterator != ' ' && iterator != ',')
+				else if (iterator != ' ' && iterator != ',')
 				{
 					page_number += iterator;
 				}
@@ -393,19 +373,19 @@ void UIVersion::Add_Page(const string& Name_of_Term, const string& Number_of_Pag
 		New_Object->Point_to_Next_Object = 0; // указатель на следующий объект ветви равен пустому указателю
 	}
 }
-void UIVersion::write_to_file_all(const string& outbound_filename) // функция записи структуры в файл
+void UIVersion::write_to_file(const string& outbound_filename) // функция записи структуры в файл
 {
 	ofstream writing_filestream(outbound_filename); // открыть файловый поток на запись 
 	Term* Trunk_Current_Object = Beginning_Pointer;
 	do
 	{
-		writing_filestream << Trunk_Current_Object->Name << endl << endl;
+		writing_filestream << Trunk_Current_Object->Name << '\t';
 		if (Trunk_Current_Object->Point_to_Branch != 0)
 		{
 			Page* Branch_Current_Object = Trunk_Current_Object->Point_to_Branch;
 			while (Branch_Current_Object != 0)
 			{
-				writing_filestream << Branch_Current_Object->Number << endl;
+				writing_filestream << Branch_Current_Object->Number << ", ";
 				Branch_Current_Object = Branch_Current_Object->Point_to_Next_Object;
 			}
 		}
@@ -417,15 +397,23 @@ void UIVersion::write_to_file_all(const string& outbound_filename) // функция за
 void UIVersion::delete_trunk_object(Term*& Current_Object)
 {
 	// функция удаления объекта ствола 
-	Term* Temporary = Beginning_Pointer;
-	if (Current_Object != Beginning_Pointer)
+	Term* TermIterator = Beginning_Pointer; // инициализация текущего элемента самым первым элементом в списке
+	if (Current_Object != Beginning_Pointer) // если выбран элемент не в самом начале списка
 	{
-		while (Temporary->Point_to_Next_Object != Current_Object)
+		// пока указатель на следующий элемент не равен указателю на удаляемый элемент
+		while (TermIterator->Point_to_Next_Object != Current_Object) 
 		{
-			Temporary = Temporary->Point_to_Next_Object;
+			// текущий элемент берется из указателя на следующий элемент
+			TermIterator = TermIterator->Point_to_Next_Object;
 		}
+		TermIterator->Point_to_Next_Object = Current_Object->Point_to_Next_Object;
 	}
-	if (Current_Object->Point_to_Branch != 0)
+	else if (Current_Object == Beginning_Pointer) // если выбранный элемент в начале списка
+	{
+		// указатель на первый элемент теперь указывает на следующий за удаляемым
+		Beginning_Pointer = Current_Object->Point_to_Next_Object;
+	}
+	if (Current_Object->Point_to_Branch != 0) // удаление всех страниц термина
 	{
 		Page* Iterating_Pointer = Current_Object->Point_to_Branch;
 		Page* temporary;
@@ -435,14 +423,6 @@ void UIVersion::delete_trunk_object(Term*& Current_Object)
 			delete Iterating_Pointer;
 			Iterating_Pointer = temporary;
 		}
-	}
-	if (Current_Object == Beginning_Pointer)
-	{
-		Beginning_Pointer = Current_Object->Point_to_Next_Object;
-	}
-	else
-	{
-		Temporary->Point_to_Next_Object = Current_Object->Point_to_Next_Object;
 	}
 	delete Current_Object;
 }
@@ -529,7 +509,6 @@ int UIVersion::read_from_file(const string& filename) //функция считывания струк
 			}
 		}
 		reading_filestream.close();
-		//show_structure();
 		return true;
 	}
 	else
