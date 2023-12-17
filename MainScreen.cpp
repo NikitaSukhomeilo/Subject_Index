@@ -1,103 +1,129 @@
 #include "MainScreen.h"
 using namespace System;
-using namespace System::Windows::Forms; // пространство имён, предоставляющее доступ к функциям работы с окнами
+using namespace System::Windows::Forms; // РїСЂРѕСЃС‚СЂР°РЅСЃС‚РІРѕ РёРјС‘РЅ, РїСЂРµРґРѕСЃС‚Р°РІР»СЏСЋС‰РµРµ РґРѕСЃС‚СѓРї Рє С„СѓРЅРєС†РёСЏРј СЂР°Р±РѕС‚С‹ СЃ РѕРєРЅР°РјРё
 using namespace std;
 using namespace msclr::interop;
-[STAThreadAttribute] // обязательное требование для обмена сообщениями с сервером сообщений Windows с компонентами COM - системные диалоги
+[STAThreadAttribute] // РѕР±СЏР·Р°С‚РµР»СЊРЅРѕРµ С‚СЂРµР±РѕРІР°РЅРёРµ РґР»СЏ РѕР±РјРµРЅР° СЃРѕРѕР±С‰РµРЅРёСЏРјРё СЃ СЃРµСЂРІРµСЂРѕРј СЃРѕРѕР±С‰РµРЅРёР№ Windows СЃ РєРѕРјРїРѕРЅРµРЅС‚Р°РјРё COM - СЃРёСЃС‚РµРјРЅС‹Рµ РґРёР°Р»РѕРіРё
 int main(cli::array<String^>^ arguments)
 {
-	Application::EnableVisualStyles(); // включает визуальные стили для приложения
-	Application::SetCompatibleTextRenderingDefault(false); // задаёт по умолчанию значения для свойств определённых компонентов управления
-	UIVersion::MainScreen Page; // переименовать пространство имен
-	Application::Run(% Page); // запуск приложения
+	Application::EnableVisualStyles(); // РІРєР»СЋС‡Р°РµС‚ РІРёР·СѓР°Р»СЊРЅС‹Рµ СЃС‚РёР»Рё РґР»СЏ РїСЂРёР»РѕР¶РµРЅРёСЏ
+	Application::SetCompatibleTextRenderingDefault(false); // Р·Р°РґР°С‘С‚ РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ Р·РЅР°С‡РµРЅРёСЏ РґР»СЏ СЃРІРѕР№СЃС‚РІ РѕРїСЂРµРґРµР»С‘РЅРЅС‹С… РєРѕРјРїРѕРЅРµРЅС‚РѕРІ СѓРїСЂР°РІР»РµРЅРёСЏ
+	UIVersion::MainScreen Page; // РїРµСЂРµРёРјРµРЅРѕРІР°С‚СЊ РїСЂРѕСЃС‚СЂР°РЅСЃС‚РІРѕ РёРјРµРЅ
+	Application::Run(% Page); // Р·Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ
 	return 0;
 }
-String^ UIVersion::MainScreen::get_current_directory()
+String^ UIVersion::MainScreen::get_current_directory() // РїРѕР»СѓС‡РµРЅРёРµ С‚РµРєСѓС‰РµР№ РїР°РїРєРё СЃ РїСЂРѕРіСЂР°РјРјРѕР№
 {
 	char buffer[MAX_PATH];
 	GetCurrentDirectoryA(256, buffer);
 	string x = string(buffer) + "\\";
-	return marshal_as<String^>(x);// преобразование типов строк
+	return marshal_as<String^>(x);// РїСЂРµРѕР±СЂР°Р·РѕРІР°РЅРёРµ С‚РёРїРѕРІ СЃС‚СЂРѕРє
 }
-void UIVersion::MainScreen::show_structure()
+void UIVersion::MainScreen::show_structure() // РѕС‚РѕР±СЂР°Р¶РµРЅРёРµ СЃС‚СЂСѓРєС‚СѓСЂС‹ РЅР° СЌРєСЂР°РЅРµ
 {
 	string buffer;
 	Term* Temporary_Trunk_Object = Beginning_Pointer;
 	while (Temporary_Trunk_Object != 0)
 	{
-		buffer = Temporary_Trunk_Object->Name + "  ";// вывести Термин
+		buffer = Temporary_Trunk_Object->Name + "  ";// РІС‹РІРµСЃС‚Рё РўРµСЂРјРёРЅ
 		Page* Temporary_Branch_Object = Temporary_Trunk_Object->Point_to_Branch;
-		while (Temporary_Branch_Object != 0) // пока указатель в ветви не равен указателю на последний элемент
+		while (Temporary_Branch_Object != 0) // РїРѕРєР° СѓРєР°Р·Р°С‚РµР»СЊ РІ РІРµС‚РІРё РЅРµ СЂР°РІРµРЅ СѓРєР°Р·Р°С‚РµР»СЋ РЅР° РїРѕСЃР»РµРґРЅРёР№ СЌР»РµРјРµРЅС‚
 		{
-			buffer += " " + Temporary_Branch_Object->Number; // вывести страницу
-			Temporary_Branch_Object = Temporary_Branch_Object->Point_to_Next_Object; //переместить указатель на следующий элемент
+			buffer += " " + Temporary_Branch_Object->Number; // РІС‹РІРµСЃС‚Рё СЃС‚СЂР°РЅРёС†Сѓ
+			Temporary_Branch_Object = Temporary_Branch_Object->Point_to_Next_Object; //РїРµСЂРµРјРµСЃС‚РёС‚СЊ СѓРєР°Р·Р°С‚РµР»СЊ РЅР° СЃР»РµРґСѓСЋС‰РёР№ СЌР»РµРјРµРЅС‚
 		}
 		UIVersion::MainScreen::Screen->Items->Add(marshal_as<String^>(buffer.c_str()));
-		Temporary_Trunk_Object = Temporary_Trunk_Object->Point_to_Next_Object; // переставить указатель к следующему элементу
+		Temporary_Trunk_Object = Temporary_Trunk_Object->Point_to_Next_Object; // РїРµСЂРµСЃС‚Р°РІРёС‚СЊ СѓРєР°Р·Р°С‚РµР»СЊ Рє СЃР»РµРґСѓСЋС‰РµРјСѓ СЌР»РµРјРµРЅС‚Сѓ
 		buffer.clear();
 	}
 }
-void UIVersion::MainScreen::update_screen()
+void UIVersion::MainScreen::update_screen() // РѕР±РЅРѕРІР»РµРЅРёРµ СЌРєСЂР°РЅР° РїСЂРѕСЃРјРѕС‚СЂР° РїРѕСЃР»Рµ РёР·РјРµРЅРµРЅРёР№ РІ СЃС‚СЂСѓРєС‚СѓСЂРµ
 {
-	this->Screen->Items->Clear();
-	show_structure();
+	this->Screen->Items->Clear(); // РѕС‡РёСЃС‚РёС‚СЊ РІРµСЃСЊ СЌРєСЂР°РЅ РїСЂРѕСЃРјРѕС‚СЂР°
+	show_structure(); // РІС‹РІРµСЃС‚Рё РІСЃРµ СЌР»РµРјРµРЅС‚С‹ СЃС‚СЂСѓРєС‚СѓСЂС‹
 }
-System::Void UIVersion::MainScreen::открытьToolStripMenuItem_Click_1(System::Object^ sender, System::EventArgs^ e)
+System::Void UIVersion::MainScreen::РѕС‚РєСЂС‹С‚СЊToolStripMenuItem_Click_1(System::Object^ sender, System::EventArgs^ e)
 {
-	// выбрать файл и  загрузить структуру
+	if (EmptyStructureLabel->Visible == true)
+	{
+		EmptyStructureLabel->Visible = false;
+	}
+	if (WrongFileLabel->Visible == true)
+	{
+		WrongFileLabel->Visible = false;
+	}
+	if (AddTerm->Enabled == false)
+	{
+		AddTerm->Enabled = true;
+	}
+	// РІС‹Р±СЂР°С‚СЊ С„Р°Р№Р» Рё  Р·Р°РіСЂСѓР·РёС‚СЊ СЃС‚СЂСѓРєС‚СѓСЂСѓ
 	Stream^ stream;
-	OpenFileDialog^ Select_File = gcnew OpenFileDialog(); // открыть диалоговое окно для выбора исходного файла
-	Select_File->InitialDirectory = get_current_directory(); // установить первоначальное место открытия окна для сохранения файла в папке с программой
-	Select_File->Filter = "txt files (*.txt)|*.txt";  // выбор только текстовых файлов
+	OpenFileDialog^ Select_File = gcnew OpenFileDialog(); // РѕС‚РєСЂС‹С‚СЊ РґРёР°Р»РѕРіРѕРІРѕРµ РѕРєРЅРѕ РґР»СЏ РІС‹Р±РѕСЂР° РёСЃС…РѕРґРЅРѕРіРѕ С„Р°Р№Р»Р°
+	Select_File->InitialDirectory = get_current_directory(); // СѓСЃС‚Р°РЅРѕРІРёС‚СЊ РїРµСЂРІРѕРЅР°С‡Р°Р»СЊРЅРѕРµ РјРµСЃС‚Рѕ РѕС‚РєСЂС‹С‚РёСЏ РѕРєРЅР° РґР»СЏ СЃРѕС…СЂР°РЅРµРЅРёСЏ С„Р°Р№Р»Р° РІ РїР°РїРєРµ СЃ РїСЂРѕРіСЂР°РјРјРѕР№
+	Select_File->Filter = "txt files (*.txt)|*.txt";  // РІС‹Р±РѕСЂ С‚РѕР»СЊРєРѕ С‚РµРєСЃС‚РѕРІС‹С… С„Р°Р№Р»РѕРІ
 	this->DialogResult = Select_File->ShowDialog();
 	if (this->DialogResult == System::Windows::Forms::DialogResult::OK)
 	{
-		// обработки кнопки ок при выборе файла в проводнике
-		if ((stream = Select_File->OpenFile())) // если файл открывается
+		// РѕР±СЂР°Р±РѕС‚РєРё РєРЅРѕРїРєРё РѕРє РїСЂРё РІС‹Р±РѕСЂРµ С„Р°Р№Р»Р° РІ РїСЂРѕРІРѕРґРЅРёРєРµ
+		if ((stream = Select_File->OpenFile())) // РµСЃР»Рё С„Р°Р№Р» РѕС‚РєСЂС‹РІР°РµС‚СЃСЏ
 		{
-			*inbound_filename = marshal_as<string>(Select_File->FileName); // привести к строковому типу std::string название входного файла для передачи в сортировку 
+			*inbound_filename = marshal_as<string>(Select_File->FileName); // РїСЂРёРІРµСЃС‚Рё Рє СЃС‚СЂРѕРєРѕРІРѕРјСѓ С‚РёРїСѓ std::string РЅР°Р·РІР°РЅРёРµ РІС…РѕРґРЅРѕРіРѕ С„Р°Р№Р»Р° РґР»СЏ РїРµСЂРµРґР°С‡Рё РІ СЃРѕСЂС‚РёСЂРѕРІРєСѓ 
 			stream->Close();
 		}
-		read_from_file(*inbound_filename);
-		unsaved_changes = true;
-		update_screen();
+		if (read_from_file(*inbound_filename) == false)
+		{
+			WrongFileLabel->Visible = true;
+			AddTerm->Enabled = false;
+		}
+		else
+		{
+			unsaved_changes = true;
+			update_screen();
+		}
 	}
 	if (this->DialogResult == System::Windows::Forms::DialogResult::Cancel)
 	{
-		// обработка кнопки выход при выборе файла в проводнике
+		// РѕР±СЂР°Р±РѕС‚РєР° РєРЅРѕРїРєРё РІС‹С…РѕРґ РїСЂРё РІС‹Р±РѕСЂРµ С„Р°Р№Р»Р° РІ РїСЂРѕРІРѕРґРЅРёРєРµ
 	}
 	delete Select_File;
 }
 
-System::Void UIVersion::MainScreen::сохранитьКакToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e)
+System::Void UIVersion::MainScreen::СЃРѕС…СЂР°РЅРёС‚СЊРљР°РєToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e)
 {
-	Stream^ stream;
-	SaveFileDialog^ Select_File = gcnew SaveFileDialog(); // объявление и инициализация диалога открытия проводника
-	Select_File->InitialDirectory = get_current_directory(); // установить первоначальное место открытия окна для сохранения файла в папке с программой
-	Select_File->Filter = "txt files (*.txt)|*.txt";  // выбор только текстовых файлов
-	this->DialogResult = Select_File->ShowDialog();
-	if (this->DialogResult == System::Windows::Forms::DialogResult::OK)
+	if (Screen->Items->Count == false)
 	{
-		// обработки кнопки ок при выборе файла в проводнике
-		if ((stream = Select_File->OpenFile())) // если файл открывается
+		EmptyStructureLabel->Visible = true;
+	}
+	else
+	{
+		Stream^ stream;
+		SaveFileDialog^ Select_File = gcnew SaveFileDialog(); // РѕР±СЉСЏРІР»РµРЅРёРµ Рё РёРЅРёС†РёР°Р»РёР·Р°С†РёСЏ РґРёР°Р»РѕРіР° РѕС‚РєСЂС‹С‚РёСЏ РїСЂРѕРІРѕРґРЅРёРєР°
+		Select_File->InitialDirectory = get_current_directory(); // СѓСЃС‚Р°РЅРѕРІРёС‚СЊ РїРµСЂРІРѕРЅР°С‡Р°Р»СЊРЅРѕРµ РјРµСЃС‚Рѕ РѕС‚РєСЂС‹С‚РёСЏ РѕРєРЅР° РґР»СЏ СЃРѕС…СЂР°РЅРµРЅРёСЏ С„Р°Р№Р»Р° РІ РїР°РїРєРµ СЃ РїСЂРѕРіСЂР°РјРјРѕР№
+		Select_File->Filter = "txt files (*.txt)|*.txt";  // РІС‹Р±РѕСЂ С‚РѕР»СЊРєРѕ С‚РµРєСЃС‚РѕРІС‹С… С„Р°Р№Р»РѕРІ
+		this->DialogResult = Select_File->ShowDialog();
+		if (this->DialogResult == System::Windows::Forms::DialogResult::OK)
 		{
-			*outbound_filename = marshal_as<string>(Select_File->FileName); // привести к строковому типу std::string название входного файла для передачи в сортировку 
-			stream->Close(); // закрытие диалога проводника
-			write_to_file(*outbound_filename);
+			// РѕР±СЂР°Р±РѕС‚РєРё РєРЅРѕРїРєРё РѕРє РїСЂРё РІС‹Р±РѕСЂРµ С„Р°Р№Р»Р° РІ РїСЂРѕРІРѕРґРЅРёРєРµ
+			if ((stream = Select_File->OpenFile())) // РµСЃР»Рё С„Р°Р№Р» РѕС‚РєСЂС‹РІР°РµС‚СЃСЏ
+			{
+				*outbound_filename = marshal_as<string>(Select_File->FileName); // РїСЂРёРІРµСЃС‚Рё Рє СЃС‚СЂРѕРєРѕРІРѕРјСѓ С‚РёРїСѓ std::string РЅР°Р·РІР°РЅРёРµ РІС…РѕРґРЅРѕРіРѕ С„Р°Р№Р»Р° РґР»СЏ РїРµСЂРµРґР°С‡Рё РІ СЃРѕСЂС‚РёСЂРѕРІРєСѓ 
+				stream->Close(); // Р·Р°РєСЂС‹С‚РёРµ РґРёР°Р»РѕРіР° РїСЂРѕРІРѕРґРЅРёРєР°
+				write_to_file(*outbound_filename);
+			}
 		}
+		if (this->DialogResult == System::Windows::Forms::DialogResult::Cancel)
+		{
+			// РѕР±СЂР°Р±РѕС‚РєР° РєРЅРѕРїРєРё РІС‹С…РѕРґ РїСЂРё РІС‹Р±РѕСЂРµ С„Р°Р№Р»Р° РІ РїСЂРѕРІРѕРґРЅРёРєРµ
+		}
+		delete Select_File;
+		unsaved_changes = false;
 	}
-	if (this->DialogResult == System::Windows::Forms::DialogResult::Cancel)
-	{
-		// обработка кнопки выход при выборе файла в проводнике
-	}
-	delete Select_File;
-	unsaved_changes = false;
 }
 System::Void UIVersion::MainScreen::DeleteTerm_Click(System::Object^ sender, System::EventArgs^ e)
 {
 	string selected_term = marshal_as<string>(Screen->SelectedItem->ToString());
 	size_t position = 0;
-	// извлечь название термина
+	// РёР·РІР»РµС‡СЊ РЅР°Р·РІР°РЅРёРµ С‚РµСЂРјРёРЅР°
 	selected_term = selected_term.substr(0, (selected_term.find("  ")));
 	Term* Current_Object = Beginning_Pointer;
 	if (check_trunk_availability(Current_Object, selected_term) == true)
@@ -111,20 +137,36 @@ System::Void UIVersion::MainScreen::DeleteTerm_Click(System::Object^ sender, Sys
 		}
 	}
 }
-System::Void UIVersion::MainScreen::выйтиToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e)
+System::Void UIVersion::MainScreen::РІС‹Р№С‚РёToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e)
 {
 	UIVersion::clear_structure();
 	UIVersion::MainScreen::~MainScreen();
 }
-System::Void UIVersion::MainScreen::новыйToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e)
+System::Void UIVersion::MainScreen::РЅРѕРІС‹Р№ToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e)
 {
+	if (EmptyStructureLabel->Visible == true)
+	{
+		EmptyStructureLabel->Visible = false;
+	}
+	if (WrongFileLabel->Visible == true)
+	{
+		WrongFileLabel->Visible = false;
+	}
+	if (AddTerm->Enabled == false)
+	{
+		AddTerm->Enabled = true;
+	}
 	clear_structure();
 	this->Screen->Items->Clear();
 	*inbound_filename = "";
 	*outbound_filename = "";
 }
-System::Void UIVersion::MainScreen::сохранитьToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e)
+System::Void UIVersion::MainScreen::СЃРѕС…СЂР°РЅРёС‚СЊToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e)
 {
+	if (Screen->Items->Count == false)
+	{
+		EmptyStructureLabel->Visible = true;
+	}
 	if (unsaved_changes == true)
 	{
 		if (*outbound_filename != "")
@@ -134,23 +176,23 @@ System::Void UIVersion::MainScreen::сохранитьToolStripMenuItem_Click(System::Obj
 		else
 		{
 			Stream^ stream;
-			SaveFileDialog^ Select_File = gcnew SaveFileDialog(); // объявление и инициализация диалога открытия проводника
-			Select_File->InitialDirectory = get_current_directory(); // установить первоначальное место открытия окна для сохранения файла в папке с программой
-			Select_File->Filter = "txt files (*.txt)|*.txt";  // выбор только текстовых файлов
+			SaveFileDialog^ Select_File = gcnew SaveFileDialog(); // РѕР±СЉСЏРІР»РµРЅРёРµ Рё РёРЅРёС†РёР°Р»РёР·Р°С†РёСЏ РґРёР°Р»РѕРіР° РѕС‚РєСЂС‹С‚РёСЏ РїСЂРѕРІРѕРґРЅРёРєР°
+			Select_File->InitialDirectory = get_current_directory(); // СѓСЃС‚Р°РЅРѕРІРёС‚СЊ РїРµСЂРІРѕРЅР°С‡Р°Р»СЊРЅРѕРµ РјРµСЃС‚Рѕ РѕС‚РєСЂС‹С‚РёСЏ РѕРєРЅР° РґР»СЏ СЃРѕС…СЂР°РЅРµРЅРёСЏ С„Р°Р№Р»Р° РІ РїР°РїРєРµ СЃ РїСЂРѕРіСЂР°РјРјРѕР№
+			Select_File->Filter = "txt files (*.txt)|*.txt";  // РІС‹Р±РѕСЂ С‚РѕР»СЊРєРѕ С‚РµРєСЃС‚РѕРІС‹С… С„Р°Р№Р»РѕРІ
 			this->DialogResult = Select_File->ShowDialog();
 			if (this->DialogResult == System::Windows::Forms::DialogResult::OK)
 			{
-				// обработки кнопки ок при выборе файла в проводнике
-				if ((stream = Select_File->OpenFile())) // если файл открывается
+				// РѕР±СЂР°Р±РѕС‚РєРё РєРЅРѕРїРєРё РѕРє РїСЂРё РІС‹Р±РѕСЂРµ С„Р°Р№Р»Р° РІ РїСЂРѕРІРѕРґРЅРёРєРµ
+				if ((stream = Select_File->OpenFile())) // РµСЃР»Рё С„Р°Р№Р» РѕС‚РєСЂС‹РІР°РµС‚СЃСЏ
 				{
-					*outbound_filename = marshal_as<string>(Select_File->FileName); // привести к строковому типу std::string название входного файла для передачи в сортировку 
-					stream->Close(); // закрытие диалога проводника
+					*outbound_filename = marshal_as<string>(Select_File->FileName); // РїСЂРёРІРµСЃС‚Рё Рє СЃС‚СЂРѕРєРѕРІРѕРјСѓ С‚РёРїСѓ std::string РЅР°Р·РІР°РЅРёРµ РІС…РѕРґРЅРѕРіРѕ С„Р°Р№Р»Р° РґР»СЏ РїРµСЂРµРґР°С‡Рё РІ СЃРѕСЂС‚РёСЂРѕРІРєСѓ 
+					stream->Close(); // Р·Р°РєСЂС‹С‚РёРµ РґРёР°Р»РѕРіР° РїСЂРѕРІРѕРґРЅРёРєР°
 					write_to_file(*outbound_filename);
 				}
 			}
 			if (this->DialogResult == System::Windows::Forms::DialogResult::Cancel)
 			{
-				// обработка кнопки выход при выборе файла в проводнике
+				// РѕР±СЂР°Р±РѕС‚РєР° РєРЅРѕРїРєРё РІС‹С…РѕРґ РїСЂРё РІС‹Р±РѕСЂРµ С„Р°Р№Р»Р° РІ РїСЂРѕРІРѕРґРЅРёРєРµ
 			}
 			delete Select_File;
 		}
@@ -159,6 +201,10 @@ System::Void UIVersion::MainScreen::сохранитьToolStripMenuItem_Click(System::Obj
 }
 System::Void UIVersion::MainScreen::AddTerm_Click(System::Object^ sender, System::EventArgs^ e)
 {
+	if (EmptyStructureLabel->Visible == true)
+	{
+		EmptyStructureLabel->Visible = false;
+	}
 	this->ApplyChanges->Show();
 	this->EnterPage->Show();
 	this->EnterPageLabel->Show();
@@ -202,7 +248,7 @@ System::Void UIVersion::MainScreen::ApplyChanges_Click(System::Object^ sender, S
 		if (this->Screen->Items->Count != 0)
 		{
 			prev = marshal_as<string>(this->Screen->SelectedItem->ToString());
-			prev = prev.substr(0, (prev.find(' '))); // извлечь из строки название выбранного термина
+			prev = prev.substr(0, (prev.find(' '))); // РёР·РІР»РµС‡СЊ РёР· СЃС‚СЂРѕРєРё РЅР°Р·РІР°РЅРёРµ РІС‹Р±СЂР°РЅРЅРѕРіРѕ С‚РµСЂРјРёРЅР°
 			Term* Current_Object = new Term(record);
 			string page_number;
 			for (size_t i = 0; i < page.size(); i++)
@@ -211,20 +257,20 @@ System::Void UIVersion::MainScreen::ApplyChanges_Click(System::Object^ sender, S
 				if (i == (page.size() - 1))
 				{
 					page_number += Iterator;
-					Page* New_Object = new Page(page_number);// инициализация его полей
-					if (Current_Object->Point_to_Branch != 0) // если в ветви есть объекты
+					Page* New_Object = new Page(page_number);// РёРЅРёС†РёР°Р»РёР·Р°С†РёСЏ РµРіРѕ РїРѕР»РµР№
+					if (Current_Object->Point_to_Branch != 0) // РµСЃР»Рё РІ РІРµС‚РІРё РµСЃС‚СЊ РѕР±СЉРµРєС‚С‹
 					{
 						Page* Iterating_Pointer = Current_Object->Point_to_Branch;
-						while (Iterating_Pointer->Point_to_Next_Object != 0) // пока указатель на объект ветви непустой
+						while (Iterating_Pointer->Point_to_Next_Object != 0) // РїРѕРєР° СѓРєР°Р·Р°С‚РµР»СЊ РЅР° РѕР±СЉРµРєС‚ РІРµС‚РІРё РЅРµРїСѓСЃС‚РѕР№
 						{
-							Iterating_Pointer = Iterating_Pointer->Point_to_Next_Object; // переставить указатель ветви на следующий элемент
+							Iterating_Pointer = Iterating_Pointer->Point_to_Next_Object; // РїРµСЂРµСЃС‚Р°РІРёС‚СЊ СѓРєР°Р·Р°С‚РµР»СЊ РІРµС‚РІРё РЅР° СЃР»РµРґСѓСЋС‰РёР№ СЌР»РµРјРµРЅС‚
 						}
-						Iterating_Pointer->Point_to_Next_Object = New_Object;// указатель на ветвь объекта ствола равен указателю на новый объект 
+						Iterating_Pointer->Point_to_Next_Object = New_Object;// СѓРєР°Р·Р°С‚РµР»СЊ РЅР° РІРµС‚РІСЊ РѕР±СЉРµРєС‚Р° СЃС‚РІРѕР»Р° СЂР°РІРµРЅ СѓРєР°Р·Р°С‚РµР»СЋ РЅР° РЅРѕРІС‹Р№ РѕР±СЉРµРєС‚ 
 					}
 					else
 					{
-						Current_Object->Point_to_Branch = New_Object; // указатель на ветвь объекта ствола равен указателю на новый объект 
-						New_Object->Point_to_Next_Object = 0; // указатель на следующий объект ветви равен пустому указателю
+						Current_Object->Point_to_Branch = New_Object; // СѓРєР°Р·Р°С‚РµР»СЊ РЅР° РІРµС‚РІСЊ РѕР±СЉРµРєС‚Р° СЃС‚РІРѕР»Р° СЂР°РІРµРЅ СѓРєР°Р·Р°С‚РµР»СЋ РЅР° РЅРѕРІС‹Р№ РѕР±СЉРµРєС‚ 
+						New_Object->Point_to_Next_Object = 0; // СѓРєР°Р·Р°С‚РµР»СЊ РЅР° СЃР»РµРґСѓСЋС‰РёР№ РѕР±СЉРµРєС‚ РІРµС‚РІРё СЂР°РІРµРЅ РїСѓСЃС‚РѕРјСѓ СѓРєР°Р·Р°С‚РµР»СЋ
 					}
 					page_number.clear();
 				}
@@ -234,20 +280,20 @@ System::Void UIVersion::MainScreen::ApplyChanges_Click(System::Object^ sender, S
 				}
 				else if ((page_number.size()) && (Iterator == ' ' || Iterator == ','))
 				{
-					Page* New_Object = new Page(page_number);// инициализация его полей
-					if (Current_Object->Point_to_Branch != 0) // если в ветви есть объекты
+					Page* New_Object = new Page(page_number);// РёРЅРёС†РёР°Р»РёР·Р°С†РёСЏ РµРіРѕ РїРѕР»РµР№
+					if (Current_Object->Point_to_Branch != 0) // РµСЃР»Рё РІ РІРµС‚РІРё РµСЃС‚СЊ РѕР±СЉРµРєС‚С‹
 					{
 						Page* Iterating_Pointer = Current_Object->Point_to_Branch;
-						while (Iterating_Pointer->Point_to_Next_Object != 0) // пока указатель на объект ветви непустой
+						while (Iterating_Pointer->Point_to_Next_Object != 0) // РїРѕРєР° СѓРєР°Р·Р°С‚РµР»СЊ РЅР° РѕР±СЉРµРєС‚ РІРµС‚РІРё РЅРµРїСѓСЃС‚РѕР№
 						{
-							Iterating_Pointer = Iterating_Pointer->Point_to_Next_Object; // переставить указатель ветви на следующий элемент
+							Iterating_Pointer = Iterating_Pointer->Point_to_Next_Object; // РїРµСЂРµСЃС‚Р°РІРёС‚СЊ СѓРєР°Р·Р°С‚РµР»СЊ РІРµС‚РІРё РЅР° СЃР»РµРґСѓСЋС‰РёР№ СЌР»РµРјРµРЅС‚
 						}
-						Iterating_Pointer->Point_to_Next_Object = New_Object;// указатель на ветвь объекта ствола равен указателю на новый объект 
+						Iterating_Pointer->Point_to_Next_Object = New_Object;// СѓРєР°Р·Р°С‚РµР»СЊ РЅР° РІРµС‚РІСЊ РѕР±СЉРµРєС‚Р° СЃС‚РІРѕР»Р° СЂР°РІРµРЅ СѓРєР°Р·Р°С‚РµР»СЋ РЅР° РЅРѕРІС‹Р№ РѕР±СЉРµРєС‚ 
 					}
 					else
 					{
-						Current_Object->Point_to_Branch = New_Object; // указатель на ветвь объекта ствола равен указателю на новый объект 
-						New_Object->Point_to_Next_Object = 0; // указатель на следующий объект ветви равен пустому указателю
+						Current_Object->Point_to_Branch = New_Object; // СѓРєР°Р·Р°С‚РµР»СЊ РЅР° РІРµС‚РІСЊ РѕР±СЉРµРєС‚Р° СЃС‚РІРѕР»Р° СЂР°РІРµРЅ СѓРєР°Р·Р°С‚РµР»СЋ РЅР° РЅРѕРІС‹Р№ РѕР±СЉРµРєС‚ 
+						New_Object->Point_to_Next_Object = 0; // СѓРєР°Р·Р°С‚РµР»СЊ РЅР° СЃР»РµРґСѓСЋС‰РёР№ РѕР±СЉРµРєС‚ РІРµС‚РІРё СЂР°РІРµРЅ РїСѓСЃС‚РѕРјСѓ СѓРєР°Р·Р°С‚РµР»СЋ
 					}
 					page_number.clear();
 				}
@@ -276,20 +322,20 @@ System::Void UIVersion::MainScreen::ApplyChanges_Click(System::Object^ sender, S
 				if (i == (page.size() - 1))
 				{
 					page_number += iterator;
-					Page* New_Object = new Page(page_number);// инициализация его полей
-					if (Current_Object->Point_to_Branch != 0) // если в ветви есть объекты
+					Page* New_Object = new Page(page_number);// РёРЅРёС†РёР°Р»РёР·Р°С†РёСЏ РµРіРѕ РїРѕР»РµР№
+					if (Current_Object->Point_to_Branch != 0) // РµСЃР»Рё РІ РІРµС‚РІРё РµСЃС‚СЊ РѕР±СЉРµРєС‚С‹
 					{
 						Page* Iterating_Pointer = Current_Object->Point_to_Branch;
-						while (Iterating_Pointer->Point_to_Next_Object != 0) // пока указатель на объект ветви непустой
+						while (Iterating_Pointer->Point_to_Next_Object != 0) // РїРѕРєР° СѓРєР°Р·Р°С‚РµР»СЊ РЅР° РѕР±СЉРµРєС‚ РІРµС‚РІРё РЅРµРїСѓСЃС‚РѕР№
 						{
-							Iterating_Pointer = Iterating_Pointer->Point_to_Next_Object; // переставить указатель ветви на следующий элемент
+							Iterating_Pointer = Iterating_Pointer->Point_to_Next_Object; // РїРµСЂРµСЃС‚Р°РІРёС‚СЊ СѓРєР°Р·Р°С‚РµР»СЊ РІРµС‚РІРё РЅР° СЃР»РµРґСѓСЋС‰РёР№ СЌР»РµРјРµРЅС‚
 						}
-						Iterating_Pointer->Point_to_Next_Object = New_Object;// указатель на ветвь объекта ствола равен указателю на новый объект 
+						Iterating_Pointer->Point_to_Next_Object = New_Object;// СѓРєР°Р·Р°С‚РµР»СЊ РЅР° РІРµС‚РІСЊ РѕР±СЉРµРєС‚Р° СЃС‚РІРѕР»Р° СЂР°РІРµРЅ СѓРєР°Р·Р°С‚РµР»СЋ РЅР° РЅРѕРІС‹Р№ РѕР±СЉРµРєС‚ 
 					}
 					else
 					{
-						Current_Object->Point_to_Branch = New_Object; // указатель на ветвь объекта ствола равен указателю на новый объект 
-						New_Object->Point_to_Next_Object = 0; // указатель на следующий объект ветви равен пустому указателю
+						Current_Object->Point_to_Branch = New_Object; // СѓРєР°Р·Р°С‚РµР»СЊ РЅР° РІРµС‚РІСЊ РѕР±СЉРµРєС‚Р° СЃС‚РІРѕР»Р° СЂР°РІРµРЅ СѓРєР°Р·Р°С‚РµР»СЋ РЅР° РЅРѕРІС‹Р№ РѕР±СЉРµРєС‚ 
+						New_Object->Point_to_Next_Object = 0; // СѓРєР°Р·Р°С‚РµР»СЊ РЅР° СЃР»РµРґСѓСЋС‰РёР№ РѕР±СЉРµРєС‚ РІРµС‚РІРё СЂР°РІРµРЅ РїСѓСЃС‚РѕРјСѓ СѓРєР°Р·Р°С‚РµР»СЋ
 					}
 					page_number.clear();
 				}
@@ -299,20 +345,20 @@ System::Void UIVersion::MainScreen::ApplyChanges_Click(System::Object^ sender, S
 				}
 				else if ((page_number.size()) && (iterator == ' ' || iterator == ','))
 				{
-					Page* New_Object = new Page(page_number);// инициализация его полей
-					if (Current_Object->Point_to_Branch != 0) // если в ветви есть объекты
+					Page* New_Object = new Page(page_number);// РёРЅРёС†РёР°Р»РёР·Р°С†РёСЏ РµРіРѕ РїРѕР»РµР№
+					if (Current_Object->Point_to_Branch != 0) // РµСЃР»Рё РІ РІРµС‚РІРё РµСЃС‚СЊ РѕР±СЉРµРєС‚С‹
 					{
 						Page* Iterating_Pointer = Current_Object->Point_to_Branch;
-						while (Iterating_Pointer->Point_to_Next_Object != 0) // пока указатель на объект ветви непустой
+						while (Iterating_Pointer->Point_to_Next_Object != 0) // РїРѕРєР° СѓРєР°Р·Р°С‚РµР»СЊ РЅР° РѕР±СЉРµРєС‚ РІРµС‚РІРё РЅРµРїСѓСЃС‚РѕР№
 						{
-							Iterating_Pointer = Iterating_Pointer->Point_to_Next_Object; // переставить указатель ветви на следующий элемент
+							Iterating_Pointer = Iterating_Pointer->Point_to_Next_Object; // РїРµСЂРµСЃС‚Р°РІРёС‚СЊ СѓРєР°Р·Р°С‚РµР»СЊ РІРµС‚РІРё РЅР° СЃР»РµРґСѓСЋС‰РёР№ СЌР»РµРјРµРЅС‚
 						}
-						Iterating_Pointer->Point_to_Next_Object = New_Object;// указатель на ветвь объекта ствола равен указателю на новый объект 
+						Iterating_Pointer->Point_to_Next_Object = New_Object;// СѓРєР°Р·Р°С‚РµР»СЊ РЅР° РІРµС‚РІСЊ РѕР±СЉРµРєС‚Р° СЃС‚РІРѕР»Р° СЂР°РІРµРЅ СѓРєР°Р·Р°С‚РµР»СЋ РЅР° РЅРѕРІС‹Р№ РѕР±СЉРµРєС‚ 
 					}
 					else
 					{
-						Current_Object->Point_to_Branch = New_Object; // указатель на ветвь объекта ствола равен указателю на новый объект 
-						New_Object->Point_to_Next_Object = 0; // указатель на следующий объект ветви равен пустому указателю
+						Current_Object->Point_to_Branch = New_Object; // СѓРєР°Р·Р°С‚РµР»СЊ РЅР° РІРµС‚РІСЊ РѕР±СЉРµРєС‚Р° СЃС‚РІРѕР»Р° СЂР°РІРµРЅ СѓРєР°Р·Р°С‚РµР»СЋ РЅР° РЅРѕРІС‹Р№ РѕР±СЉРµРєС‚ 
+						New_Object->Point_to_Next_Object = 0; // СѓРєР°Р·Р°С‚РµР»СЊ РЅР° СЃР»РµРґСѓСЋС‰РёР№ РѕР±СЉРµРєС‚ РІРµС‚РІРё СЂР°РІРµРЅ РїСѓСЃС‚РѕРјСѓ СѓРєР°Р·Р°С‚РµР»СЋ
 					}
 					page_number.clear();
 				}
@@ -334,48 +380,48 @@ System::Void UIVersion::MainScreen::Screen_SelectedIndexChanged(System::Object^ 
 	AddTerm->Enabled = true;
 	DeleteTerm->Enabled = true;
 }
-void UIVersion::Add_Term(const string& str) // функция добавления элемента в ствол структуры
+void UIVersion::Add_Term(const string& str) // С„СѓРЅРєС†РёСЏ РґРѕР±Р°РІР»РµРЅРёСЏ СЌР»РµРјРµРЅС‚Р° РІ СЃС‚РІРѕР» СЃС‚СЂСѓРєС‚СѓСЂС‹
 {
-	Term* Current_Trunk_Object; // указатель на текущий добавляемый объект
-	Current_Trunk_Object = new Term(str); // инициализация его полей
-	if (Beginning_Pointer != 0) // если структура данных непустая
+	Term* Current_Trunk_Object; // СѓРєР°Р·Р°С‚РµР»СЊ РЅР° С‚РµРєСѓС‰РёР№ РґРѕР±Р°РІР»СЏРµРјС‹Р№ РѕР±СЉРµРєС‚
+	Current_Trunk_Object = new Term(str); // РёРЅРёС†РёР°Р»РёР·Р°С†РёСЏ РµРіРѕ РїРѕР»РµР№
+	if (Beginning_Pointer != 0) // РµСЃР»Рё СЃС‚СЂСѓРєС‚СѓСЂР° РґР°РЅРЅС‹С… РЅРµРїСѓСЃС‚Р°СЏ
 	{
-		Term* Iterating_Pointer = Beginning_Pointer; // указатель для последовательного просмотра структуры для поиска её конца для добавления объекта
-		while (Iterating_Pointer->Point_to_Next_Object != 0) // пока указатель на следующий элемент указателя для последовательного просмотра структуры не равен значению пустого указателя
+		Term* Iterating_Pointer = Beginning_Pointer; // СѓРєР°Р·Р°С‚РµР»СЊ РґР»СЏ РїРѕСЃР»РµРґРѕРІР°С‚РµР»СЊРЅРѕРіРѕ РїСЂРѕСЃРјРѕС‚СЂР° СЃС‚СЂСѓРєС‚СѓСЂС‹ РґР»СЏ РїРѕРёСЃРєР° РµС‘ РєРѕРЅС†Р° РґР»СЏ РґРѕР±Р°РІР»РµРЅРёСЏ РѕР±СЉРµРєС‚Р°
+		while (Iterating_Pointer->Point_to_Next_Object != 0) // РїРѕРєР° СѓРєР°Р·Р°С‚РµР»СЊ РЅР° СЃР»РµРґСѓСЋС‰РёР№ СЌР»РµРјРµРЅС‚ СѓРєР°Р·Р°С‚РµР»СЏ РґР»СЏ РїРѕСЃР»РµРґРѕРІР°С‚РµР»СЊРЅРѕРіРѕ РїСЂРѕСЃРјРѕС‚СЂР° СЃС‚СЂСѓРєС‚СѓСЂС‹ РЅРµ СЂР°РІРµРЅ Р·РЅР°С‡РµРЅРёСЋ РїСѓСЃС‚РѕРіРѕ СѓРєР°Р·Р°С‚РµР»СЏ
 		{
-			Iterating_Pointer = Iterating_Pointer->Point_to_Next_Object; // указатель для последовательного просмотра равен указателю на следующий элемент
+			Iterating_Pointer = Iterating_Pointer->Point_to_Next_Object; // СѓРєР°Р·Р°С‚РµР»СЊ РґР»СЏ РїРѕСЃР»РµРґРѕРІР°С‚РµР»СЊРЅРѕРіРѕ РїСЂРѕСЃРјРѕС‚СЂР° СЂР°РІРµРЅ СѓРєР°Р·Р°С‚РµР»СЋ РЅР° СЃР»РµРґСѓСЋС‰РёР№ СЌР»РµРјРµРЅС‚
 		}
-		Iterating_Pointer->Point_to_Next_Object = Current_Trunk_Object;// указатель на следующий объект в структуре данных теперь указывает на добавленный объект
+		Iterating_Pointer->Point_to_Next_Object = Current_Trunk_Object;// СѓРєР°Р·Р°С‚РµР»СЊ РЅР° СЃР»РµРґСѓСЋС‰РёР№ РѕР±СЉРµРєС‚ РІ СЃС‚СЂСѓРєС‚СѓСЂРµ РґР°РЅРЅС‹С… С‚РµРїРµСЂСЊ СѓРєР°Р·С‹РІР°РµС‚ РЅР° РґРѕР±Р°РІР»РµРЅРЅС‹Р№ РѕР±СЉРµРєС‚
 	}
-	else Beginning_Pointer = Current_Trunk_Object; // указатель на первый объект в структуре данных теперь указывает на добавленный объект
+	else Beginning_Pointer = Current_Trunk_Object; // СѓРєР°Р·Р°С‚РµР»СЊ РЅР° РїРµСЂРІС‹Р№ РѕР±СЉРµРєС‚ РІ СЃС‚СЂСѓРєС‚СѓСЂРµ РґР°РЅРЅС‹С… С‚РµРїРµСЂСЊ СѓРєР°Р·С‹РІР°РµС‚ РЅР° РґРѕР±Р°РІР»РµРЅРЅС‹Р№ РѕР±СЉРµРєС‚
 }
-void UIVersion::Add_Page(const string& Name_of_Term, const string& Number_of_Page) // функция добавления элемента в ветвь структуры
+void UIVersion::Add_Page(const string& Name_of_Term, const string& Number_of_Page) // С„СѓРЅРєС†РёСЏ РґРѕР±Р°РІР»РµРЅРёСЏ СЌР»РµРјРµРЅС‚Р° РІ РІРµС‚РІСЊ СЃС‚СЂСѓРєС‚СѓСЂС‹
 {
-	Term* Current_Trunk_Object; // указатель на текущий добавляемый объект
-	Page* New_Object = new Page(Number_of_Page);// инициализация его полей
+	Term* Current_Trunk_Object; // СѓРєР°Р·Р°С‚РµР»СЊ РЅР° С‚РµРєСѓС‰РёР№ РґРѕР±Р°РІР»СЏРµРјС‹Р№ РѕР±СЉРµРєС‚
+	Page* New_Object = new Page(Number_of_Page);// РёРЅРёС†РёР°Р»РёР·Р°С†РёСЏ РµРіРѕ РїРѕР»РµР№
 	Current_Trunk_Object = Beginning_Pointer;
-	while (Current_Trunk_Object->Name != Name_of_Term) // пока значение текущего элемента ствола не равно значению введенной строки
+	while (Current_Trunk_Object->Name != Name_of_Term) // РїРѕРєР° Р·РЅР°С‡РµРЅРёРµ С‚РµРєСѓС‰РµРіРѕ СЌР»РµРјРµРЅС‚Р° СЃС‚РІРѕР»Р° РЅРµ СЂР°РІРЅРѕ Р·РЅР°С‡РµРЅРёСЋ РІРІРµРґРµРЅРЅРѕР№ СЃС‚СЂРѕРєРё
 	{
-		Current_Trunk_Object = Current_Trunk_Object->Point_to_Next_Object; // переставить указатель ствола на следующий элемент
+		Current_Trunk_Object = Current_Trunk_Object->Point_to_Next_Object; // РїРµСЂРµСЃС‚Р°РІРёС‚СЊ СѓРєР°Р·Р°С‚РµР»СЊ СЃС‚РІРѕР»Р° РЅР° СЃР»РµРґСѓСЋС‰РёР№ СЌР»РµРјРµРЅС‚
 	}
-	if (Current_Trunk_Object->Point_to_Branch != 0) // если в ветви есть объекты
+	if (Current_Trunk_Object->Point_to_Branch != 0) // РµСЃР»Рё РІ РІРµС‚РІРё РµСЃС‚СЊ РѕР±СЉРµРєС‚С‹
 	{
 		Page* Iterating_Pointer = Current_Trunk_Object->Point_to_Branch;
-		while (Iterating_Pointer->Point_to_Next_Object != 0) // пока указатель на объект ветви непустой
+		while (Iterating_Pointer->Point_to_Next_Object != 0) // РїРѕРєР° СѓРєР°Р·Р°С‚РµР»СЊ РЅР° РѕР±СЉРµРєС‚ РІРµС‚РІРё РЅРµРїСѓСЃС‚РѕР№
 		{
-			Iterating_Pointer = Iterating_Pointer->Point_to_Next_Object; // переставить указатель ветви на следующий элемент
+			Iterating_Pointer = Iterating_Pointer->Point_to_Next_Object; // РїРµСЂРµСЃС‚Р°РІРёС‚СЊ СѓРєР°Р·Р°С‚РµР»СЊ РІРµС‚РІРё РЅР° СЃР»РµРґСѓСЋС‰РёР№ СЌР»РµРјРµРЅС‚
 		}
-		Iterating_Pointer->Point_to_Next_Object = New_Object;// указатель на ветвь объекта ствола равен указателю на новый объект 
+		Iterating_Pointer->Point_to_Next_Object = New_Object;// СѓРєР°Р·Р°С‚РµР»СЊ РЅР° РІРµС‚РІСЊ РѕР±СЉРµРєС‚Р° СЃС‚РІРѕР»Р° СЂР°РІРµРЅ СѓРєР°Р·Р°С‚РµР»СЋ РЅР° РЅРѕРІС‹Р№ РѕР±СЉРµРєС‚ 
 	}
 	else
 	{
-		Current_Trunk_Object->Point_to_Branch = New_Object; // указатель на ветвь объекта ствола равен указателю на новый объект 
-		New_Object->Point_to_Next_Object = 0; // указатель на следующий объект ветви равен пустому указателю
+		Current_Trunk_Object->Point_to_Branch = New_Object; // СѓРєР°Р·Р°С‚РµР»СЊ РЅР° РІРµС‚РІСЊ РѕР±СЉРµРєС‚Р° СЃС‚РІРѕР»Р° СЂР°РІРµРЅ СѓРєР°Р·Р°С‚РµР»СЋ РЅР° РЅРѕРІС‹Р№ РѕР±СЉРµРєС‚ 
+		New_Object->Point_to_Next_Object = 0; // СѓРєР°Р·Р°С‚РµР»СЊ РЅР° СЃР»РµРґСѓСЋС‰РёР№ РѕР±СЉРµРєС‚ РІРµС‚РІРё СЂР°РІРµРЅ РїСѓСЃС‚РѕРјСѓ СѓРєР°Р·Р°С‚РµР»СЋ
 	}
 }
-void UIVersion::write_to_file(const string& outbound_filename) // функция записи структуры в файл
+void UIVersion::write_to_file(const string& outbound_filename) // С„СѓРЅРєС†РёСЏ Р·Р°РїРёСЃРё СЃС‚СЂСѓРєС‚СѓСЂС‹ РІ С„Р°Р№Р»
 {
-	ofstream writing_filestream(outbound_filename); // открыть файловый поток на запись 
+	ofstream writing_filestream(outbound_filename); // РѕС‚РєСЂС‹С‚СЊ С„Р°Р№Р»РѕРІС‹Р№ РїРѕС‚РѕРє РЅР° Р·Р°РїРёСЃСЊ 
 	Term* Trunk_Current_Object = Beginning_Pointer;
 	do
 	{
@@ -396,24 +442,24 @@ void UIVersion::write_to_file(const string& outbound_filename) // функция записи
 }
 void UIVersion::delete_trunk_object(Term*& Current_Object)
 {
-	// функция удаления объекта ствола 
-	Term* TermIterator = Beginning_Pointer; // инициализация текущего элемента самым первым элементом в списке
-	if (Current_Object != Beginning_Pointer) // если выбран элемент не в самом начале списка
+	// С„СѓРЅРєС†РёСЏ СѓРґР°Р»РµРЅРёСЏ РѕР±СЉРµРєС‚Р° СЃС‚РІРѕР»Р° 
+	Term* TermIterator = Beginning_Pointer; // РёРЅРёС†РёР°Р»РёР·Р°С†РёСЏ С‚РµРєСѓС‰РµРіРѕ СЌР»РµРјРµРЅС‚Р° СЃР°РјС‹Рј РїРµСЂРІС‹Рј СЌР»РµРјРµРЅС‚РѕРј РІ СЃРїРёСЃРєРµ
+	if (Current_Object != Beginning_Pointer) // РµСЃР»Рё РІС‹Р±СЂР°РЅ СЌР»РµРјРµРЅС‚ РЅРµ РІ СЃР°РјРѕРј РЅР°С‡Р°Р»Рµ СЃРїРёСЃРєР°
 	{
-		// пока указатель на следующий элемент не равен указателю на удаляемый элемент
+		// РїРѕРєР° СѓРєР°Р·Р°С‚РµР»СЊ РЅР° СЃР»РµРґСѓСЋС‰РёР№ СЌР»РµРјРµРЅС‚ РЅРµ СЂР°РІРµРЅ СѓРєР°Р·Р°С‚РµР»СЋ РЅР° СѓРґР°Р»СЏРµРјС‹Р№ СЌР»РµРјРµРЅС‚
 		while (TermIterator->Point_to_Next_Object != Current_Object) 
 		{
-			// текущий элемент берется из указателя на следующий элемент
+			// С‚РµРєСѓС‰РёР№ СЌР»РµРјРµРЅС‚ Р±РµСЂРµС‚СЃСЏ РёР· СѓРєР°Р·Р°С‚РµР»СЏ РЅР° СЃР»РµРґСѓСЋС‰РёР№ СЌР»РµРјРµРЅС‚
 			TermIterator = TermIterator->Point_to_Next_Object;
 		}
 		TermIterator->Point_to_Next_Object = Current_Object->Point_to_Next_Object;
 	}
-	else if (Current_Object == Beginning_Pointer) // если выбранный элемент в начале списка
+	else if (Current_Object == Beginning_Pointer) // РµСЃР»Рё РІС‹Р±СЂР°РЅРЅС‹Р№ СЌР»РµРјРµРЅС‚ РІ РЅР°С‡Р°Р»Рµ СЃРїРёСЃРєР°
 	{
-		// указатель на первый элемент теперь указывает на следующий за удаляемым
+		// СѓРєР°Р·Р°С‚РµР»СЊ РЅР° РїРµСЂРІС‹Р№ СЌР»РµРјРµРЅС‚ С‚РµРїРµСЂСЊ СѓРєР°Р·С‹РІР°РµС‚ РЅР° СЃР»РµРґСѓСЋС‰РёР№ Р·Р° СѓРґР°Р»СЏРµРјС‹Рј
 		Beginning_Pointer = Current_Object->Point_to_Next_Object;
 	}
-	if (Current_Object->Point_to_Branch != 0) // удаление всех страниц термина
+	if (Current_Object->Point_to_Branch != 0) // СѓРґР°Р»РµРЅРёРµ РІСЃРµС… СЃС‚СЂР°РЅРёС† С‚РµСЂРјРёРЅР°
 	{
 		Page* Iterating_Pointer = Current_Object->Point_to_Branch;
 		Page* temporary;
@@ -428,7 +474,7 @@ void UIVersion::delete_trunk_object(Term*& Current_Object)
 }
 void UIVersion::delete_branch_object(Term*& Current_Trunk_Object, const string& Number_of_Page)
 {
-	// функция удаления объекта ветви
+	// С„СѓРЅРєС†РёСЏ СѓРґР°Р»РµРЅРёСЏ РѕР±СЉРµРєС‚Р° РІРµС‚РІРё
 	bool existence = false;
 	if (Current_Trunk_Object->Point_to_Branch != 0)
 	{
@@ -460,8 +506,31 @@ void UIVersion::delete_branch_object(Term*& Current_Trunk_Object, const string& 
 		}
 	}
 }
-int UIVersion::read_from_file(const string& filename) //функция считывания структуры данных из файла
+int UIVersion::read_from_file(const string& filename) //С„СѓРЅРєС†РёСЏ СЃС‡РёС‚С‹РІР°РЅРёСЏ СЃС‚СЂСѓРєС‚СѓСЂС‹ РґР°РЅРЅС‹С… РёР· С„Р°Р№Р»Р°
 {
+	ifstream test(filename);
+	string TestString;
+	getline(test, TestString);
+	try
+	{
+		if (isdigit(TestString[TestString.size() - 1]) == false)
+		{
+			getline(test, TestString);
+			if (isdigit(TestString[TestString.size() - 1]) == false)
+			{
+				test.close();
+				return false;
+			}
+		}
+	}
+	catch (exception& err)
+	{
+		test.close();
+		return false;
+	}
+	test.close();
+
+
 	ifstream reading_filestream(filename);
 	string file_iterator;
 	if (reading_filestream.is_open())
@@ -469,7 +538,7 @@ int UIVersion::read_from_file(const string& filename) //функция считывания струк
 		stringstream torrent;
 		while (getline(reading_filestream, file_iterator))
 		{
-			if (file_iterator.size() >= 5)
+			if (file_iterator.size() > 5)
 			{
 				size_t position = 0;
 				for (size_t i = 0; i < file_iterator.size() - 1; i++)
@@ -485,7 +554,7 @@ int UIVersion::read_from_file(const string& filename) //функция считывания струк
 				}
 				Term Buffer;
 				Buffer.Name = file_iterator.substr(0, position - 1);
-				Add_Term(Buffer.Name); // добавить Термин
+				Add_Term(Buffer.Name); // РґРѕР±Р°РІРёС‚СЊ РўРµСЂРјРёРЅ
 
 				string number_of_page;
 
@@ -518,24 +587,24 @@ int UIVersion::read_from_file(const string& filename) //функция считывания струк
 }
 bool UIVersion::check_trunk_availability(Term*& Iterating_Pointer, const string& Name)
 {
-	// функция проверки наличия термина в структуре
+	// С„СѓРЅРєС†РёСЏ РїСЂРѕРІРµСЂРєРё РЅР°Р»РёС‡РёСЏ С‚РµСЂРјРёРЅР° РІ СЃС‚СЂСѓРєС‚СѓСЂРµ
 	Term Temporary(Name);
-	bool existence = false; // показатель наличия
-	while (Iterating_Pointer != 0) // пока указатель на элемент ствола непустой
+	bool existence = false; // РїРѕРєР°Р·Р°С‚РµР»СЊ РЅР°Р»РёС‡РёСЏ
+	while (Iterating_Pointer != 0) // РїРѕРєР° СѓРєР°Р·Р°С‚РµР»СЊ РЅР° СЌР»РµРјРµРЅС‚ СЃС‚РІРѕР»Р° РЅРµРїСѓСЃС‚РѕР№
 	{
-		if (Iterating_Pointer->Name == Name) // если совпали термины
+		if (Iterating_Pointer->Name == Name) // РµСЃР»Рё СЃРѕРІРїР°Р»Рё С‚РµСЂРјРёРЅС‹
 		{
 			existence = true;
 			break;
 		}
 		else
 		{
-			Iterating_Pointer = Iterating_Pointer->Point_to_Next_Object; // переместить указатель на следующий элемент в стволе структуры
+			Iterating_Pointer = Iterating_Pointer->Point_to_Next_Object; // РїРµСЂРµРјРµСЃС‚РёС‚СЊ СѓРєР°Р·Р°С‚РµР»СЊ РЅР° СЃР»РµРґСѓСЋС‰РёР№ СЌР»РµРјРµРЅС‚ РІ СЃС‚РІРѕР»Рµ СЃС‚СЂСѓРєС‚СѓСЂС‹
 		}
 	}
 	return existence;
 }
-void UIVersion::clear_structure() // функция, удаляющая структуру данных
+void UIVersion::clear_structure() // С„СѓРЅРєС†РёСЏ, СѓРґР°Р»СЏСЋС‰Р°СЏ СЃС‚СЂСѓРєС‚СѓСЂСѓ РґР°РЅРЅС‹С…
 {
 	Term* Temporary = Beginning_Pointer;
 	Term* Iterator = Temporary;
@@ -556,5 +625,5 @@ void UIVersion::clear_structure() // функция, удаляющая структуру данных
 		Iterator = Temporary->Point_to_Next_Object;
 		delete Temporary;
 	}
-	Beginning_Pointer = 0; // указатель на первый элемент становится пустым
+	Beginning_Pointer = 0; // СѓРєР°Р·Р°С‚РµР»СЊ РЅР° РїРµСЂРІС‹Р№ СЌР»РµРјРµРЅС‚ СЃС‚Р°РЅРѕРІРёС‚СЃСЏ РїСѓСЃС‚С‹Рј
 }
