@@ -5,7 +5,7 @@
 #include<sstream>
 #include<exception>
 #include<string>
-#include<msclr\marshal_cppstd.h> // библиотека для преобразования строк типа String^ в std::string и обратно
+#include<msclr\marshal_cppstd.h> // Р±РёР±Р»РёРѕС‚РµРєР° РґР»СЏ РїСЂРµРѕР±СЂР°Р·РѕРІР°РЅРёСЏ СЃС‚СЂРѕРє С‚РёРїР° String^ РІ std::string Рё РѕР±СЂР°С‚РЅРѕ
 namespace UIVersion
 {
 	using namespace System;
@@ -18,51 +18,51 @@ namespace UIVersion
 	using namespace std;
 	using namespace msclr::interop;
 	/// <summary>
-	/// Сводка для MainScreen
+	/// РЎРІРѕРґРєР° РґР»СЏ MainScreen
 	/// </summary>
-	struct Page // структура Страница
+	struct Page // СЃС‚СЂСѓРєС‚СѓСЂР° РЎС‚СЂР°РЅРёС†Р°
 	{
-		string Number; // численное значение страницы
-		Page* Point_to_Next_Object; // указатель на следующий объект в ветви
-		Page(const string& str)// инициализирующий конструктор
+		string Number; // С‡РёСЃР»РµРЅРЅРѕРµ Р·РЅР°С‡РµРЅРёРµ СЃС‚СЂР°РЅРёС†С‹
+		Page* Point_to_Next_Object; // СѓРєР°Р·Р°С‚РµР»СЊ РЅР° СЃР»РµРґСѓСЋС‰РёР№ РѕР±СЉРµРєС‚ РІ РІРµС‚РІРё
+		Page(const string& str)// РёРЅРёС†РёР°Р»РёР·РёСЂСѓСЋС‰РёР№ РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ
 		{
 			Number = str;
 			Point_to_Next_Object = 0;
 		}
-		Page()// конструктор по умолчанию
+		Page()// РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ
 		{
 			Number = "";
 			Point_to_Next_Object = 0;
 		}
 	};
-	struct Term // структура Термин
+	struct Term // СЃС‚СЂСѓРєС‚СѓСЂР° РўРµСЂРјРёРЅ
 	{
-		string Name; // название термина
-		Term* Point_to_Next_Object; // указатель на следующий объект ствола
-		Page* Point_to_Branch; // указатель на первую страницу, где встречается термин
-		Term(const string& str) // инициализирующий конструктор
+		string Name; // РЅР°Р·РІР°РЅРёРµ С‚РµСЂРјРёРЅР°
+		Term* Point_to_Next_Object; // СѓРєР°Р·Р°С‚РµР»СЊ РЅР° СЃР»РµРґСѓСЋС‰РёР№ РѕР±СЉРµРєС‚ СЃС‚РІРѕР»Р°
+		Page* Point_to_Branch; // СѓРєР°Р·Р°С‚РµР»СЊ РЅР° РїРµСЂРІСѓСЋ СЃС‚СЂР°РЅРёС†Сѓ, РіРґРµ РІСЃС‚СЂРµС‡Р°РµС‚СЃСЏ С‚РµСЂРјРёРЅ
+		Term(const string& str) // РёРЅРёС†РёР°Р»РёР·РёСЂСѓСЋС‰РёР№ РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ
 		{
 			Name = str;
 			Point_to_Branch = 0;
 			Point_to_Next_Object = 0;
 		}
-		Term() // конструктор по умолчанию
+		Term() // РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ
 		{
 			Name = "";
 			Point_to_Branch = 0;
 			Point_to_Next_Object = 0;
 		}
 	};
-	void Add_Term(const string&); // добавление термина в структуру
-	void Add_Page(const string&, const string&); // добавление страницы к термину
-	void write_to_file(const string&); // запись в файл структуры
-	void delete_trunk_object(Term*&); // удаление термина
-	void delete_branch_object(Term*&, const string&); // удаление страницы
-	int read_from_file(const string&); // считывание структуры из файла
-	bool check_trunk_availability(Term*&, const string&); // проверка наличия выбранного элемента в структуре
-	void clear_structure(); // очистка структуры
-	bool unsaved_changes; // показатель изменений в структуре
-	// временные переменные для итерации по структуре
+	void Add_Term(const string&); // РґРѕР±Р°РІР»РµРЅРёРµ С‚РµСЂРјРёРЅР° РІ СЃС‚СЂСѓРєС‚СѓСЂСѓ
+	void Add_Page(const string&, const string&); // РґРѕР±Р°РІР»РµРЅРёРµ СЃС‚СЂР°РЅРёС†С‹ Рє С‚РµСЂРјРёРЅСѓ
+	void write_to_file(const string&); // Р·Р°РїРёСЃСЊ РІ С„Р°Р№Р» СЃС‚СЂСѓРєС‚СѓСЂС‹
+	void delete_trunk_object(Term*&); // СѓРґР°Р»РµРЅРёРµ С‚РµСЂРјРёРЅР°
+	void delete_branch_object(Term*&, const string&); // СѓРґР°Р»РµРЅРёРµ СЃС‚СЂР°РЅРёС†С‹
+	int read_from_file(const string&); // СЃС‡РёС‚С‹РІР°РЅРёРµ СЃС‚СЂСѓРєС‚СѓСЂС‹ РёР· С„Р°Р№Р»Р°
+	bool check_trunk_availability(Term*&, const string&); // РїСЂРѕРІРµСЂРєР° РЅР°Р»РёС‡РёСЏ РІС‹Р±СЂР°РЅРЅРѕРіРѕ СЌР»РµРјРµРЅС‚Р° РІ СЃС‚СЂСѓРєС‚СѓСЂРµ
+	void clear_structure(); // РѕС‡РёСЃС‚РєР° СЃС‚СЂСѓРєС‚СѓСЂС‹
+	bool unsaved_changes; // РїРѕРєР°Р·Р°С‚РµР»СЊ РёР·РјРµРЅРµРЅРёР№ РІ СЃС‚СЂСѓРєС‚СѓСЂРµ
+	// РІСЂРµРјРµРЅРЅС‹Рµ РїРµСЂРµРјРµРЅРЅС‹Рµ РґР»СЏ РёС‚РµСЂР°С†РёРё РїРѕ СЃС‚СЂСѓРєС‚СѓСЂРµ
 	Term* Beginning_Pointer;
 	Term* Temporary;
 	Term* Iterator;
@@ -74,13 +74,13 @@ namespace UIVersion
 			InitializeComponent();
 			inbound_filename = new string{ "" };
 			outbound_filename = new string{ "" };
-			Beginning_Pointer = 0; // указатель на самый первый объект в структуре
-			unsaved_changes = false; // показатель наличия изменений в текущей структуре при работе с ней
+			Beginning_Pointer = 0; // СѓРєР°Р·Р°С‚РµР»СЊ РЅР° СЃР°РјС‹Р№ РїРµСЂРІС‹Р№ РѕР±СЉРµРєС‚ РІ СЃС‚СЂСѓРєС‚СѓСЂРµ
+			unsaved_changes = false; // РїРѕРєР°Р·Р°С‚РµР»СЊ РЅР°Р»РёС‡РёСЏ РёР·РјРµРЅРµРЅРёР№ РІ С‚РµРєСѓС‰РµР№ СЃС‚СЂСѓРєС‚СѓСЂРµ РїСЂРё СЂР°Р±РѕС‚Рµ СЃ РЅРµР№
 		}
 
 	protected:
 		/// <summary>
-		/// Освободить все используемые ресурсы.
+		/// РћСЃРІРѕР±РѕРґРёС‚СЊ РІСЃРµ РёСЃРїРѕР»СЊР·СѓРµРјС‹Рµ СЂРµСЃСѓСЂСЃС‹.
 		/// </summary>
 		~MainScreen()
 		{
@@ -99,12 +99,12 @@ namespace UIVersion
 
 	private: System::Windows::Forms::Button^ DeleteTerm;
 	private: System::Windows::Forms::MenuStrip^ menuStrip1;
-	private: System::Windows::Forms::ToolStripMenuItem^ файлToolStripMenuItem;
-	private: System::Windows::Forms::ToolStripMenuItem^ новыйToolStripMenuItem;
-	private: System::Windows::Forms::ToolStripMenuItem^ открытьToolStripMenuItem;
-	private: System::Windows::Forms::ToolStripMenuItem^ сохранитьToolStripMenuItem;
-	private: System::Windows::Forms::ToolStripMenuItem^ сохранитьКакToolStripMenuItem;
-	private: System::Windows::Forms::ToolStripMenuItem^ выйтиToolStripMenuItem;
+	private: System::Windows::Forms::ToolStripMenuItem^ С„Р°Р№Р»ToolStripMenuItem;
+	private: System::Windows::Forms::ToolStripMenuItem^ РЅРѕРІС‹Р№ToolStripMenuItem;
+	private: System::Windows::Forms::ToolStripMenuItem^ РѕС‚РєСЂС‹С‚СЊToolStripMenuItem;
+	private: System::Windows::Forms::ToolStripMenuItem^ СЃРѕС…СЂР°РЅРёС‚СЊToolStripMenuItem;
+	private: System::Windows::Forms::ToolStripMenuItem^ СЃРѕС…СЂР°РЅРёС‚СЊРљР°РєToolStripMenuItem;
+	private: System::Windows::Forms::ToolStripMenuItem^ РІС‹Р№С‚РёToolStripMenuItem;
 	private: System::Windows::Forms::Label^ EnterTermLabel;
 	private: System::Windows::Forms::RichTextBox^ EnterTerm;
 	private: System::Windows::Forms::Label^ EnterPageLabel;
@@ -112,30 +112,35 @@ namespace UIVersion
 	private: System::Windows::Forms::Button^ ApplyChanges;
 	public: System::Windows::Forms::ListBox^ Screen;
 	private:
-	string* inbound_filename; // название входного файла со структурой
-	string* outbound_filename; // название выходного файла со структурой
+	string* inbound_filename; // РЅР°Р·РІР°РЅРёРµ РІС…РѕРґРЅРѕРіРѕ С„Р°Р№Р»Р° СЃРѕ СЃС‚СЂСѓРєС‚СѓСЂРѕР№
+	string* outbound_filename; // РЅР°Р·РІР°РЅРёРµ РІС‹С…РѕРґРЅРѕРіРѕ С„Р°Р№Р»Р° СЃРѕ СЃС‚СЂСѓРєС‚СѓСЂРѕР№
 	System::Windows::Forms::Label^ DiagMes_1;
+	public: System::Windows::Forms::Label^ WrongFileLabel;
+	private: System::Windows::Forms::Label^ EmptyStructureLabel;
+	public:
+
+	public:
 		/// <summary>
-		/// Обязательная переменная конструктора.
+		/// РћР±СЏР·Р°С‚РµР»СЊРЅР°СЏ РїРµСЂРµРјРµРЅРЅР°СЏ РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂР°.
 		/// </summary>
 		System::ComponentModel::Container ^components;
 
 		#pragma region Windows Form Designer generated code
 		/// <summary>
-		/// Требуемый метод для поддержки конструктора — не изменяйте 
-		/// содержимое этого метода с помощью редактора кода.
+		/// РўСЂРµР±СѓРµРјС‹Р№ РјРµС‚РѕРґ РґР»СЏ РїРѕРґРґРµСЂР¶РєРё РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂР° вЂ” РЅРµ РёР·РјРµРЅСЏР№С‚Рµ 
+		/// СЃРѕРґРµСЂР¶РёРјРѕРµ СЌС‚РѕРіРѕ РјРµС‚РѕРґР° СЃ РїРѕРјРѕС‰СЊСЋ СЂРµРґР°РєС‚РѕСЂР° РєРѕРґР°.
 		/// </summary>
 		void InitializeComponent(void)
 		{
 			this->AddTerm = (gcnew System::Windows::Forms::Button());
 			this->DeleteTerm = (gcnew System::Windows::Forms::Button());
 			this->menuStrip1 = (gcnew System::Windows::Forms::MenuStrip());
-			this->файлToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
-			this->новыйToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
-			this->открытьToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
-			this->сохранитьToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
-			this->сохранитьКакToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
-			this->выйтиToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
+			this->С„Р°Р№Р»ToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
+			this->РЅРѕРІС‹Р№ToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
+			this->РѕС‚РєСЂС‹С‚СЊToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
+			this->СЃРѕС…СЂР°РЅРёС‚СЊToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
+			this->СЃРѕС…СЂР°РЅРёС‚СЊРљР°РєToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
+			this->РІС‹Р№С‚РёToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->EnterTermLabel = (gcnew System::Windows::Forms::Label());
 			this->EnterTerm = (gcnew System::Windows::Forms::RichTextBox());
 			this->EnterPageLabel = (gcnew System::Windows::Forms::Label());
@@ -143,6 +148,8 @@ namespace UIVersion
 			this->ApplyChanges = (gcnew System::Windows::Forms::Button());
 			this->Screen = (gcnew System::Windows::Forms::ListBox());
 			this->DiagMes_1 = (gcnew System::Windows::Forms::Label());
+			this->WrongFileLabel = (gcnew System::Windows::Forms::Label());
+			this->EmptyStructureLabel = (gcnew System::Windows::Forms::Label());
 			this->menuStrip1->SuspendLayout();
 			this->SuspendLayout();
 			// 
@@ -152,7 +159,7 @@ namespace UIVersion
 			this->AddTerm->Name = L"AddTerm";
 			this->AddTerm->Size = System::Drawing::Size(115, 48);
 			this->AddTerm->TabIndex = 0;
-			this->AddTerm->Text = L"Добавить";
+			this->AddTerm->Text = L"Р”РѕР±Р°РІРёС‚СЊ";
 			this->AddTerm->UseVisualStyleBackColor = true;
 			this->AddTerm->Click += gcnew System::EventHandler(this, &MainScreen::AddTerm_Click);
 			// 
@@ -163,64 +170,64 @@ namespace UIVersion
 			this->DeleteTerm->Name = L"DeleteTerm";
 			this->DeleteTerm->Size = System::Drawing::Size(115, 48);
 			this->DeleteTerm->TabIndex = 2;
-			this->DeleteTerm->Text = L"Удалить";
+			this->DeleteTerm->Text = L"РЈРґР°Р»РёС‚СЊ";
 			this->DeleteTerm->UseVisualStyleBackColor = true;
 			this->DeleteTerm->Click += gcnew System::EventHandler(this, &MainScreen::DeleteTerm_Click);
 			// 
 			// menuStrip1
 			// 
 			this->menuStrip1->ImageScalingSize = System::Drawing::Size(20, 20);
-			this->menuStrip1->Items->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(1) { this->файлToolStripMenuItem });
+			this->menuStrip1->Items->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(1) { this->С„Р°Р№Р»ToolStripMenuItem });
 			this->menuStrip1->Location = System::Drawing::Point(0, 0);
 			this->menuStrip1->Name = L"menuStrip1";
 			this->menuStrip1->Size = System::Drawing::Size(1006, 28);
 			this->menuStrip1->TabIndex = 5;
 			this->menuStrip1->Text = L"menuStrip1";
 			// 
-			// файлToolStripMenuItem
+			// С„Р°Р№Р»ToolStripMenuItem
 			// 
-			this->файлToolStripMenuItem->DropDownItems->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(5) {
-				this->новыйToolStripMenuItem,
-					this->открытьToolStripMenuItem, this->сохранитьToolStripMenuItem, this->сохранитьКакToolStripMenuItem, this->выйтиToolStripMenuItem
+			this->С„Р°Р№Р»ToolStripMenuItem->DropDownItems->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(5) {
+				this->РЅРѕРІС‹Р№ToolStripMenuItem,
+					this->РѕС‚РєСЂС‹С‚СЊToolStripMenuItem, this->СЃРѕС…СЂР°РЅРёС‚СЊToolStripMenuItem, this->СЃРѕС…СЂР°РЅРёС‚СЊРљР°РєToolStripMenuItem, this->РІС‹Р№С‚РёToolStripMenuItem
 			});
-			this->файлToolStripMenuItem->Name = L"файлToolStripMenuItem";
-			this->файлToolStripMenuItem->Size = System::Drawing::Size(59, 24);
-			this->файлToolStripMenuItem->Text = L"Файл";
+			this->С„Р°Р№Р»ToolStripMenuItem->Name = L"С„Р°Р№Р»ToolStripMenuItem";
+			this->С„Р°Р№Р»ToolStripMenuItem->Size = System::Drawing::Size(59, 24);
+			this->С„Р°Р№Р»ToolStripMenuItem->Text = L"Р¤Р°Р№Р»";
 			// 
-			// новыйToolStripMenuItem
+			// РЅРѕРІС‹Р№ToolStripMenuItem
 			// 
-			this->новыйToolStripMenuItem->Name = L"новыйToolStripMenuItem";
-			this->новыйToolStripMenuItem->Size = System::Drawing::Size(192, 26);
-			this->новыйToolStripMenuItem->Text = L"Новый";
-			this->новыйToolStripMenuItem->Click += gcnew System::EventHandler(this, &MainScreen::новыйToolStripMenuItem_Click);
+			this->РЅРѕРІС‹Р№ToolStripMenuItem->Name = L"РЅРѕРІС‹Р№ToolStripMenuItem";
+			this->РЅРѕРІС‹Р№ToolStripMenuItem->Size = System::Drawing::Size(192, 26);
+			this->РЅРѕРІС‹Р№ToolStripMenuItem->Text = L"РќРѕРІС‹Р№";
+			this->РЅРѕРІС‹Р№ToolStripMenuItem->Click += gcnew System::EventHandler(this, &MainScreen::РЅРѕРІС‹Р№ToolStripMenuItem_Click);
 			// 
-			// открытьToolStripMenuItem
+			// РѕС‚РєСЂС‹С‚СЊToolStripMenuItem
 			// 
-			this->открытьToolStripMenuItem->Name = L"открытьToolStripMenuItem";
-			this->открытьToolStripMenuItem->Size = System::Drawing::Size(192, 26);
-			this->открытьToolStripMenuItem->Text = L"Открыть";
-			this->открытьToolStripMenuItem->Click += gcnew System::EventHandler(this, &MainScreen::открытьToolStripMenuItem_Click_1);
+			this->РѕС‚РєСЂС‹С‚СЊToolStripMenuItem->Name = L"РѕС‚РєСЂС‹С‚СЊToolStripMenuItem";
+			this->РѕС‚РєСЂС‹С‚СЊToolStripMenuItem->Size = System::Drawing::Size(192, 26);
+			this->РѕС‚РєСЂС‹С‚СЊToolStripMenuItem->Text = L"РћС‚РєСЂС‹С‚СЊ";
+			this->РѕС‚РєСЂС‹С‚СЊToolStripMenuItem->Click += gcnew System::EventHandler(this, &MainScreen::РѕС‚РєСЂС‹С‚СЊToolStripMenuItem_Click_1);
 			// 
-			// сохранитьToolStripMenuItem
+			// СЃРѕС…СЂР°РЅРёС‚СЊToolStripMenuItem
 			// 
-			this->сохранитьToolStripMenuItem->Name = L"сохранитьToolStripMenuItem";
-			this->сохранитьToolStripMenuItem->Size = System::Drawing::Size(192, 26);
-			this->сохранитьToolStripMenuItem->Text = L"Сохранить";
-			this->сохранитьToolStripMenuItem->Click += gcnew System::EventHandler(this, &MainScreen::сохранитьToolStripMenuItem_Click);
+			this->СЃРѕС…СЂР°РЅРёС‚СЊToolStripMenuItem->Name = L"СЃРѕС…СЂР°РЅРёС‚СЊToolStripMenuItem";
+			this->СЃРѕС…СЂР°РЅРёС‚СЊToolStripMenuItem->Size = System::Drawing::Size(192, 26);
+			this->СЃРѕС…СЂР°РЅРёС‚СЊToolStripMenuItem->Text = L"РЎРѕС…СЂР°РЅРёС‚СЊ";
+			this->СЃРѕС…СЂР°РЅРёС‚СЊToolStripMenuItem->Click += gcnew System::EventHandler(this, &MainScreen::СЃРѕС…СЂР°РЅРёС‚СЊToolStripMenuItem_Click);
 			// 
-			// сохранитьКакToolStripMenuItem
+			// СЃРѕС…СЂР°РЅРёС‚СЊРљР°РєToolStripMenuItem
 			// 
-			this->сохранитьКакToolStripMenuItem->Name = L"сохранитьКакToolStripMenuItem";
-			this->сохранитьКакToolStripMenuItem->Size = System::Drawing::Size(192, 26);
-			this->сохранитьКакToolStripMenuItem->Text = L"Сохранить как";
-			this->сохранитьКакToolStripMenuItem->Click += gcnew System::EventHandler(this, &MainScreen::сохранитьКакToolStripMenuItem_Click);
+			this->СЃРѕС…СЂР°РЅРёС‚СЊРљР°РєToolStripMenuItem->Name = L"СЃРѕС…СЂР°РЅРёС‚СЊРљР°РєToolStripMenuItem";
+			this->СЃРѕС…СЂР°РЅРёС‚СЊРљР°РєToolStripMenuItem->Size = System::Drawing::Size(192, 26);
+			this->СЃРѕС…СЂР°РЅРёС‚СЊРљР°РєToolStripMenuItem->Text = L"РЎРѕС…СЂР°РЅРёС‚СЊ РєР°Рє";
+			this->СЃРѕС…СЂР°РЅРёС‚СЊРљР°РєToolStripMenuItem->Click += gcnew System::EventHandler(this, &MainScreen::СЃРѕС…СЂР°РЅРёС‚СЊРљР°РєToolStripMenuItem_Click);
 			// 
-			// выйтиToolStripMenuItem
+			// РІС‹Р№С‚РёToolStripMenuItem
 			// 
-			this->выйтиToolStripMenuItem->Name = L"выйтиToolStripMenuItem";
-			this->выйтиToolStripMenuItem->Size = System::Drawing::Size(192, 26);
-			this->выйтиToolStripMenuItem->Text = L"Выйти";
-			this->выйтиToolStripMenuItem->Click += gcnew System::EventHandler(this, &MainScreen::выйтиToolStripMenuItem_Click);
+			this->РІС‹Р№С‚РёToolStripMenuItem->Name = L"РІС‹Р№С‚РёToolStripMenuItem";
+			this->РІС‹Р№С‚РёToolStripMenuItem->Size = System::Drawing::Size(192, 26);
+			this->РІС‹Р№С‚РёToolStripMenuItem->Text = L"Р’С‹Р№С‚Рё";
+			this->РІС‹Р№С‚РёToolStripMenuItem->Click += gcnew System::EventHandler(this, &MainScreen::РІС‹Р№С‚РёToolStripMenuItem_Click);
 			// 
 			// EnterTermLabel
 			// 
@@ -229,7 +236,7 @@ namespace UIVersion
 			this->EnterTermLabel->Name = L"EnterTermLabel";
 			this->EnterTermLabel->Size = System::Drawing::Size(132, 16);
 			this->EnterTermLabel->TabIndex = 6;
-			this->EnterTermLabel->Text = L"Название термина";
+			this->EnterTermLabel->Text = L"РќР°Р·РІР°РЅРёРµ С‚РµСЂРјРёРЅР°";
 			this->EnterTermLabel->Visible = false;
 			// 
 			// EnterTerm
@@ -248,7 +255,7 @@ namespace UIVersion
 			this->EnterPageLabel->Name = L"EnterPageLabel";
 			this->EnterPageLabel->Size = System::Drawing::Size(72, 16);
 			this->EnterPageLabel->TabIndex = 8;
-			this->EnterPageLabel->Text = L"Страницы";
+			this->EnterPageLabel->Text = L"РЎС‚СЂР°РЅРёС†С‹";
 			this->EnterPageLabel->Visible = false;
 			// 
 			// EnterPage
@@ -266,7 +273,7 @@ namespace UIVersion
 			this->ApplyChanges->Name = L"ApplyChanges";
 			this->ApplyChanges->Size = System::Drawing::Size(75, 23);
 			this->ApplyChanges->TabIndex = 10;
-			this->ApplyChanges->Text = L"Готово";
+			this->ApplyChanges->Text = L"Р“РѕС‚РѕРІРѕ";
 			this->ApplyChanges->UseVisualStyleBackColor = true;
 			this->ApplyChanges->Visible = false;
 			this->ApplyChanges->Click += gcnew System::EventHandler(this, &MainScreen::ApplyChanges_Click);
@@ -284,20 +291,52 @@ namespace UIVersion
 			// DiagMes_1
 			// 
 			this->DiagMes_1->AutoSize = true;
+			this->DiagMes_1->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 16.2F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
 			this->DiagMes_1->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(192)), static_cast<System::Int32>(static_cast<System::Byte>(0)),
 				static_cast<System::Int32>(static_cast<System::Byte>(0)));
-			this->DiagMes_1->Location = System::Drawing::Point(297, 406);
+			this->DiagMes_1->Location = System::Drawing::Point(308, 403);
 			this->DiagMes_1->Name = L"DiagMes_1";
-			this->DiagMes_1->Size = System::Drawing::Size(169, 16);
+			this->DiagMes_1->Size = System::Drawing::Size(474, 32);
 			this->DiagMes_1->TabIndex = 12;
-			this->DiagMes_1->Text = L"неверный формат ввода";
+			this->DiagMes_1->Text = L"РЅРµРІРµСЂРЅС‹Р№ С„РѕСЂРјР°С‚ РІРІРѕРґР° РґР°РЅРЅС‹С…";
 			this->DiagMes_1->Visible = false;
+			// 
+			// WrongFileLabel
+			// 
+			this->WrongFileLabel->AutoSize = true;
+			this->WrongFileLabel->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 16.2F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			this->WrongFileLabel->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(192)), static_cast<System::Int32>(static_cast<System::Byte>(0)),
+				static_cast<System::Int32>(static_cast<System::Byte>(0)));
+			this->WrongFileLabel->Location = System::Drawing::Point(111, 170);
+			this->WrongFileLabel->Name = L"WrongFileLabel";
+			this->WrongFileLabel->Size = System::Drawing::Size(371, 32);
+			this->WrongFileLabel->TabIndex = 13;
+			this->WrongFileLabel->Text = L"РЅРµРІРµСЂРЅС‹Р№ С„РѕСЂРјР°С‚ С„Р°Р№Р»Р°";
+			this->WrongFileLabel->Visible = false;
+			// 
+			// EmptyStructureLabel
+			// 
+			this->EmptyStructureLabel->AutoSize = true;
+			this->EmptyStructureLabel->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 16.2F, System::Drawing::FontStyle::Bold,
+				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(204)));
+			this->EmptyStructureLabel->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(192)),
+				static_cast<System::Int32>(static_cast<System::Byte>(0)), static_cast<System::Int32>(static_cast<System::Byte>(0)));
+			this->EmptyStructureLabel->Location = System::Drawing::Point(218, 616);
+			this->EmptyStructureLabel->Name = L"EmptyStructureLabel";
+			this->EmptyStructureLabel->Size = System::Drawing::Size(605, 32);
+			this->EmptyStructureLabel->TabIndex = 14;
+			this->EmptyStructureLabel->Text = L"СЃС‚СЂСѓРєС‚СѓСЂР° РїСѓСЃС‚Р°, СЃРѕС…СЂР°РЅРµРЅРёРµ РЅРµРІРѕР·РјРѕР¶РЅРѕ";
+			this->EmptyStructureLabel->Visible = false;
 			// 
 			// MainScreen
 			// 
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::None;
 			this->BackColor = System::Drawing::SystemColors::Control;
 			this->ClientSize = System::Drawing::Size(1006, 721);
+			this->Controls->Add(this->EmptyStructureLabel);
+			this->Controls->Add(this->WrongFileLabel);
 			this->Controls->Add(this->DiagMes_1);
 			this->Controls->Add(this->Screen);
 			this->Controls->Add(this->ApplyChanges);
@@ -312,7 +351,7 @@ namespace UIVersion
 			this->Name = L"MainScreen";
 			this->ShowIcon = false;
 			this->StartPosition = System::Windows::Forms::FormStartPosition::CenterScreen;
-			this->Text = L"Менеджер предметных указателей";
+			this->Text = L"РњРµРЅРµРґР¶РµСЂ РїСЂРµРґРјРµС‚РЅС‹С… СѓРєР°Р·Р°С‚РµР»РµР№";
 			this->menuStrip1->ResumeLayout(false);
 			this->menuStrip1->PerformLayout();
 			this->ResumeLayout(false);
@@ -321,27 +360,27 @@ namespace UIVersion
 		}
 #pragma endregion
 	private:
-	String^ get_current_directory(); // получение текущей папки с программой
-	// отображение структуры на экран
+	String^ get_current_directory(); // РїРѕР»СѓС‡РµРЅРёРµ С‚РµРєСѓС‰РµР№ РїР°РїРєРё СЃ РїСЂРѕРіСЂР°РјРјРѕР№
+	// РѕС‚РѕР±СЂР°Р¶РµРЅРёРµ СЃС‚СЂСѓРєС‚СѓСЂС‹ РЅР° СЌРєСЂР°РЅ
 	void show_structure(); 
 	void update_screen();
-	// опция меню - открыть файл из проводника
-	System::Void открытьToolStripMenuItem_Click_1(System::Object^ sender, System::EventArgs^ e);
-	// опция меню - сохранить файл в любом случае
-	System::Void сохранитьКакToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e);
-	// опция меню - удалить запись из структуры
+	// РѕРїС†РёСЏ РјРµРЅСЋ - РѕС‚РєСЂС‹С‚СЊ С„Р°Р№Р» РёР· РїСЂРѕРІРѕРґРЅРёРєР°
+	System::Void РѕС‚РєСЂС‹С‚СЊToolStripMenuItem_Click_1(System::Object^ sender, System::EventArgs^ e);
+	// РѕРїС†РёСЏ РјРµРЅСЋ - СЃРѕС…СЂР°РЅРёС‚СЊ С„Р°Р№Р» РІ Р»СЋР±РѕРј СЃР»СѓС‡Р°Рµ
+	System::Void СЃРѕС…СЂР°РЅРёС‚СЊРљР°РєToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e);
+	// РѕРїС†РёСЏ РјРµРЅСЋ - СѓРґР°Р»РёС‚СЊ Р·Р°РїРёСЃСЊ РёР· СЃС‚СЂСѓРєС‚СѓСЂС‹
 	System::Void DeleteTerm_Click(System::Object^ sender, System::EventArgs^ e);
-	// выход из программы
-	System::Void выйтиToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e);
-	// очистить структуру и создать новую
-	System::Void новыйToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e);
-	// опция меню - сохранить файл
-	System::Void сохранитьToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e);
-	// событие добавления записи в структуру
+	// РІС‹С…РѕРґ РёР· РїСЂРѕРіСЂР°РјРјС‹
+	System::Void РІС‹Р№С‚РёToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e);
+	// РѕС‡РёСЃС‚РёС‚СЊ СЃС‚СЂСѓРєС‚СѓСЂСѓ Рё СЃРѕР·РґР°С‚СЊ РЅРѕРІСѓСЋ
+	System::Void РЅРѕРІС‹Р№ToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e);
+	// РѕРїС†РёСЏ РјРµРЅСЋ - СЃРѕС…СЂР°РЅРёС‚СЊ С„Р°Р№Р»
+	System::Void СЃРѕС…СЂР°РЅРёС‚СЊToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e);
+	// СЃРѕР±С‹С‚РёРµ РґРѕР±Р°РІР»РµРЅРёСЏ Р·Р°РїРёСЃРё РІ СЃС‚СЂСѓРєС‚СѓСЂСѓ
 	System::Void AddTerm_Click(System::Object^ sender, System::EventArgs^ e);
-	// событие ввод данных в поле формы для составления записи в струткуру
+	// СЃРѕР±С‹С‚РёРµ РІРІРѕРґ РґР°РЅРЅС‹С… РІ РїРѕР»Рµ С„РѕСЂРјС‹ РґР»СЏ СЃРѕСЃС‚Р°РІР»РµРЅРёСЏ Р·Р°РїРёСЃРё РІ СЃС‚СЂСѓС‚РєСѓСЂСѓ
 	System::Void ApplyChanges_Click(System::Object^ sender, System::EventArgs^ e);
-	// событие изменение выбранной записи в окне структуры
+	// СЃРѕР±С‹С‚РёРµ РёР·РјРµРЅРµРЅРёРµ РІС‹Р±СЂР°РЅРЅРѕР№ Р·Р°РїРёСЃРё РІ РѕРєРЅРµ СЃС‚СЂСѓРєС‚СѓСЂС‹
     System::Void Screen_SelectedIndexChanged(System::Object^ sender, System::EventArgs^ e);
 };
 }
